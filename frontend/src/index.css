@@ -1,0 +1,198 @@
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("./assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/Space_Grotesk/SpaceGrotesk-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/Space_Grotesk/SpaceGrotesk-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/Space_Grotesk/SpaceGrotesk-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/Space_Grotesk/SpaceGrotesk-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/Space_Grotesk/SpaceGrotesk-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* PixelArt — mockup palette as CSS variables.
+   Light theme by default in :root, dark theme in [data-theme="dark"]. */
+
+:root {
+  --font-pixel: "Press Start 2P", cursive;
+  --font-sans: "Space Grotesk", sans-serif;
+
+  /* Type scale (1rem = 16px). Steps of 2px around body size; larger jumps above 24px. */
+  --font-size-10: 0.625rem;
+  --font-size-12: 0.75rem;
+  --font-size-14: 0.875rem;
+  --font-size-16: 1rem;
+  --font-size-18: 1.125rem;
+  --font-size-20: 1.25rem;
+  --font-size-22: 1.375rem;
+  --font-size-24: 1.5rem;
+  --font-size-28: 1.75rem;
+  --font-size-32: 2rem;
+  --font-size-40: 2.5rem;
+  --font-size-48: 3rem;
+
+  /* Surfaces */
+  --background-color: #f4f1ea;
+  --surface-color: #ffffff;
+  --panel-color: #fbf9f3;
+  --dot-grid-color: #e3ddce;
+
+  /* Text */
+  --text-color: #1b1826;
+  --text-muted-color: #6f6a7d;
+  --text-faint-color: #9d97a8;
+  --text-on-primary-color: #1b1826;
+  --text-on-favorite-color: #ffffff;
+
+  /* Borders and hard shadows */
+  --border-color: #1b1826;
+  --border-soft-color: #cfc9ba;
+  --divider-color: #e7e1d4;
+  --shadow-color: #1b1826;
+  --shadow-soft-color: #ded7c8;
+
+  /* Primary accent (lime): active, selected, main button */
+  --primary-color: #d6f56a;
+  --primary-hover-color: #e3ff8c;
+  --primary-active-color: #bcda4f;
+  --primary-tint-color: #f0fbd0;
+  --primary-contrast-color: #4f6b0c; /* readable accent on light backgrounds: text and links */
+
+  /* Favorites and destructive actions (magenta) */
+  --favorite-color: #d1247a;
+  --favorite-strong-color: #a9155f;
+  --favorite-tint-color: #ffe3ef;
+  --favorite-off-color: #b6b0a2; /* inactive star */
+
+  /* Validation */
+  --error-color: #c0392b;
+  --error-surface-color: #fff6f4;
+
+  /* Disabled state */
+  --disabled-background-color: #eeeae0;
+  --disabled-border-color: #ddd8cb;
+  --disabled-text-color: #b6b0a2;
+
+  /* Skeleton / loading */
+  --skeleton-base-color: #f2efe7;
+  --skeleton-highlight-color: #e6e1d5;
+
+  /* Pixel canvas (transparency checkerboard) */
+  --canvas-checker-a-color: #cfc7b4;
+  --canvas-checker-b-color: #ded7c6;
+  --canvas-grid-line-color: rgba(27, 24, 38, 0.18);
+
+  /* Sprite ink in this theme */
+  --pixel-ink-color: #26222e;
+}
+
+/* Dark Theme variables */
+[data-theme="dark"] {
+  --background-color: #14121a;
+  --surface-color: #1e1b26;
+  --panel-color: #1a1822;
+  --dot-grid-color: #221f2c;
+
+  --text-color: #f3efe7;
+  --text-muted-color: #9b93aa;
+  --text-faint-color: #6f6785;
+  --text-on-primary-color: #14121a;
+  --text-on-favorite-color: #14121a;
+
+  --border-color: #383246;
+  --border-soft-color: #4a4359;
+  --divider-color: #2a2635;
+  --shadow-color: #0b0910;
+  --shadow-soft-color: #0b0910;
+
+  --primary-color: #c5f24a;
+  --primary-hover-color: #d9ff77;
+  --primary-active-color: #a9d43a;
+  --primary-tint-color: #23291a;
+  --primary-contrast-color: #c5f24a;
+
+  --favorite-color: #ff5ea8;
+  --favorite-strong-color: #ff5ea8;
+  --favorite-tint-color: #2a1a26;
+  --favorite-off-color: #5d5674;
+
+  --error-color: #ff6b6b;
+  --error-surface-color: #241a20;
+
+  --disabled-background-color: #2a2635;
+  --disabled-border-color: #2a2635;
+  --disabled-text-color: #5d5674;
+
+  --skeleton-base-color: #221f2c;
+  --skeleton-highlight-color: #302b3f;
+
+  --canvas-checker-a-color: #252131;
+  --canvas-checker-b-color: #1c1926;
+  --canvas-grid-line-color: rgba(255, 255, 255, 0.05);
+
+  --pixel-ink-color: #8b84a0;
+}
+
+/* Editor paint palette: this is drawing data, not theme data,
+     so it stays the same in light and dark. */
+:root {
+  --paint-white: #ffffff;
+  --paint-gray: #8a8f98;
+  --paint-gray-dark: #5d5674;
+  --paint-red: #e0364f;
+  --paint-pink: #ff8fa8;
+  --paint-yellow: #f5c542;
+  --paint-orange: #e8863c;
+  --paint-green: #4fae5a;
+  --paint-green-dark: #2f8f4a;
+  --paint-blue: #4a7fe0;
+  --paint-cyan: #7fd7e8;
+  --paint-purple: #a05ce0;
+  --paint-violet: #6b4bd8;
+  --paint-brown: #8a5a3c;
+  --paint-sand: #f1e6d0;
+  --paint-teal: #1f6f8f;
+  --paint-lime: #c8d94a;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
