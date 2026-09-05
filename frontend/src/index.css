@@ -71,12 +71,11 @@
   --background-color: #f4f1ea;
   --surface-color: #ffffff;
   --panel-color: #fbf9f3;
-  --dot-grid-color: #e3ddce;
 
   /* Text */
   --text-color: #1b1826;
   --text-muted-color: #6f6a7d;
-  --text-faint-color: #9d97a8;
+  --text-hover-color: #54525a;
   --text-on-primary-color: #1b1826;
   --text-on-favorite-color: #ffffff;
 
@@ -89,37 +88,13 @@
 
   /* Primary accent (lime): active, selected, main button */
   --primary-color: #d6f56a;
-  --primary-hover-color: #e3ff8c;
-  --primary-active-color: #bcda4f;
-  --primary-tint-color: #f0fbd0;
-  --primary-contrast-color: #4f6b0c; /* readable accent on light backgrounds: text and links */
+  --primary-hover-color: #f1ffc7;
+  --primary-active-color: #d6f56a;
 
   /* Favorites and destructive actions (magenta) */
   --favorite-color: #d1247a;
   --favorite-strong-color: #a9155f;
-  --favorite-tint-color: #ffe3ef;
   --favorite-off-color: #b6b0a2; /* inactive star */
-
-  /* Validation */
-  --error-color: #c0392b;
-  --error-surface-color: #fff6f4;
-
-  /* Disabled state */
-  --disabled-background-color: #eeeae0;
-  --disabled-border-color: #ddd8cb;
-  --disabled-text-color: #b6b0a2;
-
-  /* Skeleton / loading */
-  --skeleton-base-color: #f2efe7;
-  --skeleton-highlight-color: #e6e1d5;
-
-  /* Pixel canvas (transparency checkerboard) */
-  --canvas-checker-a-color: #cfc7b4;
-  --canvas-checker-b-color: #ded7c6;
-  --canvas-grid-line-color: rgba(27, 24, 38, 0.18);
-
-  /* Sprite ink in this theme */
-  --pixel-ink-color: #26222e;
 }
 
 /* Dark Theme variables */
@@ -127,46 +102,26 @@
   --background-color: #14121a;
   --surface-color: #1e1b26;
   --panel-color: #1a1822;
-  --dot-grid-color: #221f2c;
 
   --text-color: #f3efe7;
   --text-muted-color: #9b93aa;
-  --text-faint-color: #6f6785;
-  --text-on-primary-color: #14121a;
+  --text-hover-color: #827c92;
+  --text-on-primary-color: #c5f24a;
   --text-on-favorite-color: #14121a;
 
-  --border-color: #383246;
+  --border-color: #c5f24a;
   --border-soft-color: #4a4359;
   --divider-color: #2a2635;
   --shadow-color: #0b0910;
   --shadow-soft-color: #0b0910;
 
   --primary-color: #c5f24a;
-  --primary-hover-color: #d9ff77;
-  --primary-active-color: #a9d43a;
-  --primary-tint-color: #23291a;
-  --primary-contrast-color: #c5f24a;
+  --primary-hover-color: #30322a;
+  --primary-active-color: #30322a;
 
   --favorite-color: #ff5ea8;
   --favorite-strong-color: #ff5ea8;
-  --favorite-tint-color: #2a1a26;
   --favorite-off-color: #5d5674;
-
-  --error-color: #ff6b6b;
-  --error-surface-color: #241a20;
-
-  --disabled-background-color: #2a2635;
-  --disabled-border-color: #2a2635;
-  --disabled-text-color: #5d5674;
-
-  --skeleton-base-color: #221f2c;
-  --skeleton-highlight-color: #302b3f;
-
-  --canvas-checker-a-color: #252131;
-  --canvas-checker-b-color: #1c1926;
-  --canvas-grid-line-color: rgba(255, 255, 255, 0.05);
-
-  --pixel-ink-color: #8b84a0;
 }
 
 /* Editor paint palette: this is drawing data, not theme data,

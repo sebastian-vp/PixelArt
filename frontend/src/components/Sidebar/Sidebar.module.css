@@ -4,12 +4,14 @@
   gap: 8px;
   background-color: var(--panel-color);
   padding: 16px;
+  border-right: 2px solid var(--divider-color);
 }
 
 .brand {
   font-family: var(--font-pixel);
   font-size: var(--font-size-18);
   margin: 16px 0;
+  color: var(--text-color);
 }
 
 .nav {
@@ -38,8 +40,8 @@
 
 .nav-item:hover {
   font-weight: 500;
-  background-color: var(--primary-tint-color);
-  color: var(--text-color);
+  background-color: var(--primary-hover-color);
+  color: var(--text-hover-color);
 }
 
 .nav-item::before {
@@ -47,26 +49,26 @@
   display: inline-block;
   width: 8px;
   height: 8px;
-  background-color: var(--border-soft-color);
+  background-color: var(--text-muted-color);
 }
 
 .nav-item:hover::before {
-  background-color: var(--text-muted-color);
+  background-color: var(--text-hover-color);
 }
 
 .selected, .selected:hover {
   font-weight: 500;
-  background-color: var(--primary-color);
+  background-color: var(--primary-active-color);
   color: var(--text-on-primary-color);
   border-color: var(--border-color);
 }
 
 .selected::before, .selected:hover::before {
-  background-color: var(--border-color);
+  background-color: var(--text-on-primary-color);
 }
 
 .theme {
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--border-soft-color);
   border-radius: 4px;
   display: flex;
   background-color: var(--surface-color);
@@ -79,25 +81,26 @@
   align-items: center;
   color: var(--text-muted-color);
   padding: 4px;
+  cursor: pointer;
 }
 
 .theme-option:has(.theme-input:checked) {
-  background-color: var(--primary-color);
+  background-color: var(--primary-active-color);
   color: var(--text-on-primary-color);
   font-weight: 600;
 }
 
 .theme-option:hover {
-  background-color: var(--primary-tint-color);
-  color: var(--text-color);
+  background-color: var(--primary-hover-color);
+  color: var(--text-hover-color);
 }
 
 .theme-option:first-child {
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-soft-color);
 }
 
 .theme-option:last-child {
-  border-left: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-soft-color);
 }
 
 .theme-input {
@@ -141,6 +144,6 @@
 
 .user-email {
   margin: 0;
-  color: var(--text-faint-color);
+  color: var(--text-muted-color);
   font-size: var(--font-size-12);
 }

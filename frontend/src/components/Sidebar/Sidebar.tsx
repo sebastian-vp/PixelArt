@@ -1,8 +1,12 @@
 import { Moon, Sun } from "lucide-react";
 
+import { useTheme } from "@/providers/theme";
+
 import styles from "./Sidebar.module.css";
 
 export function Sidebar() {
+  const [theme, setTheme] = useTheme();
+
   return (
     <aside className={styles["sidebar"]}>
       <header>
@@ -19,12 +23,26 @@ export function Sidebar() {
       <div className={styles["theme"]}>
         <label className={styles["theme-option"]}>
           <Sun size={12} fill="currentColor" />
-          <input className={styles["theme-input"]} name="theme" type="radio" value="light"/>
+          <input
+            className={styles["theme-input"]}
+            name="theme"
+            type="radio"
+            value="light"
+            onChange={() => setTheme("light")}
+            checked={theme === "light"}
+          />
           Claro
         </label>
         <label className={styles["theme-option"]}>
           <Moon size={12} fill="currentColor" />
-          <input className={styles["theme-input"]} name="theme" type="radio" value="light" />
+          <input
+            className={styles["theme-input"]}
+            name="theme"
+            type="radio"
+            value="light"
+            onChange={() => setTheme("dark")}
+            checked={theme === "dark"}
+          />
           Oscuro
         </label>
       </div>
