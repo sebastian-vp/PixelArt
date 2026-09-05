@@ -4,15 +4,17 @@ Editor web de pixel art donde cada usuario crea sus dibujos en el navegador y lo
 
 Proyecto del curso de Aplicaciones Web Reactivas.
 
-## Stack
+## Frontend
+
+### Stack
 
 - **React 19** + **TypeScript**
 
-## Requisitos
+### Requisitos
 
 - Node.js 20+ y npm
 
-## Puesta en marcha
+### Puesta en marcha
 
 ```bash
 cd frontend
@@ -22,7 +24,7 @@ npm run dev
 
 La app queda en `http://localhost:5173`.
 
-### Scripts
+#### Scripts
 
 | Script | Descripción |
 |--------|-------------|
@@ -33,7 +35,7 @@ La app queda en `http://localhost:5173`.
 | `npm run lint:fix` | ESLint con autofix |
 | `npm run format` | Formatea `src` con Prettier |
 
-## Estructura
+### Estructura
 
 ```
 frontend/
@@ -45,6 +47,10 @@ frontend/
     ├── App.tsx        # Componente raíz
     └── main.tsx       # Punto de entrada
 ```
+
+## Backend
+
+No configurado aún.
 
 ## Convención de commits
 
