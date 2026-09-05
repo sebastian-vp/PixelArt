@@ -27,7 +27,6 @@ export function Sidebar() {
             className={styles["theme-input"]}
             name="theme"
             type="radio"
-            value="light"
             onChange={() => setTheme("light")}
             checked={theme === "light"}
           />
@@ -39,7 +38,6 @@ export function Sidebar() {
             className={styles["theme-input"]}
             name="theme"
             type="radio"
-            value="light"
             onChange={() => setTheme("dark")}
             checked={theme === "dark"}
           />
