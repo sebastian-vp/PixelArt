@@ -1,73 +1,75 @@
-# React + TypeScript + Vite
+# PixelArt
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Editor web de pixel art donde cada usuario crea sus dibujos en el navegador y los guarda en su propia cuenta.
 
-Currently, two official plugins are available:
+Proyecto del curso de Aplicaciones Web Reactivas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- **React 19** + **TypeScript**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Requisitos
 
-## Expanding the ESLint configuration
+- Node.js 20+ y npm
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Puesta en marcha
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+La app queda en `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+### Scripts
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+| Script | Descripción |
+|--------|-------------|
+| `npm run dev` | Levanta el servidor de desarrollo con HMR |
+| `npm run build` | Compila TypeScript y genera el build de producción |
+| `npm run preview` | Sirve el build de producción localmente |
+| `npm run lint` | Corre ESLint |
+| `npm run lint:fix` | ESLint con autofix |
+| `npm run format` | Formatea `src` con Prettier |
+
+## Estructura
+
+```
+frontend/
+├── public/            # Estáticos (favicon, etc.)
+└── src/
+    ├── assets/        # Fuentes e imágenes
+    ├── components/    # Componentes reutilizables (ej. Sidebar)
+    ├── templates/     # Layouts/plantillas de página
+    ├── App.tsx        # Componente raíz
+    └── main.tsx       # Punto de entrada
+```
+
+## Convención de commits
+
+**Formato:** `<tipo>(<scope opcional>): <resumen>`
+
+- Resumen en imperativo (`add`, `fix`, `remove`), máx. 50 caracteres, sin punto final.
+- Contexto extra va en el cuerpo del mensaje, no en el título.
+- Un commit = una unidad lógica de cambio.
+
+**Tipos:**
+
+| Tipo | Uso |
+|------|-----|
+| `feat` | Nueva funcionalidad |
+| `fix` | Corrección de bug |
+| `perf` | Mejora de rendimiento |
+| `refactor` | Reestructura sin cambiar comportamiento |
+| `style` | Formato, espacios, CSS |
+| `test` | Agrega o actualiza tests |
+| `docs` | Solo documentación |
+
+**Ejemplos:**
+
+```
+feat(auth): add login form validation
+fix(sidebar): prevent menu overflow on mobile
+refactor: remove unused dashboard components
 ```
