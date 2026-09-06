@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  flex-grow: 1;
+}
+
+.title, .subtitle {
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  color: var(--text-color);
+  font-size: var(--font-size-24);
+}
+
+.subtitle {
+  color: var(--text-muted-color);
+  font-size: var(--font-size-14);
+}

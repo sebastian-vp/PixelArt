@@ -18,6 +18,10 @@
   flex-grow: 1;
 }
 
+.nav a {
+  text-decoration: none;
+}
+
 .nav-list {
   list-style: none;
   margin: 0;

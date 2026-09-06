@@ -1,12 +1,21 @@
 import "./App.css";
 
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { Favorites } from "@/pages/Favorites";
+import { Home } from "@/pages/Home";
 import { Template } from "@/templates/Template";
 
 function App() {
   return (
-    <Template>
-      <div>hola</div>
-    </Template>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Template />}>
+          <Route index element={<Home />} />
+          <Route path="favorites" element={<Favorites />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

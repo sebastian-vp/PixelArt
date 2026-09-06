@@ -1,4 +1,5 @@
 import { Moon, Sun } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 import { useTheme } from "@/providers/theme";
 
@@ -6,6 +7,16 @@ import styles from "./Sidebar.module.css";
 
 export function Sidebar() {
   const [theme, setTheme] = useTheme();
+
+  function getLinkClass({ isActive }: { isActive: boolean }) {
+    let classes = styles["nav-item"];
+
+    if(isActive) {
+      classes += (" " + styles["selected"]);
+    }
+    
+    return classes;
+  }
 
   return (
     <aside className={styles["sidebar"]}>
@@ -15,8 +26,12 @@ export function Sidebar() {
 
       <nav className={styles["nav"]} aria-label="Main">
         <ul className={styles["nav-list"]}>
-          <li className={`${styles["nav-item"]} ${styles["selected"]}`}>Mis dibujos</li>
-          <li className={styles["nav-item"]}>Favoritos</li>
+          <NavLink to="/" className={getLinkClass}>
+            Mis dibujos
+          </NavLink>
+          <NavLink to="/favorites" className={getLinkClass}>
+            Favoritos
+          </NavLink>
         </ul>
       </nav>
 
