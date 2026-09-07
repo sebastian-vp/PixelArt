@@ -1,0 +1,45 @@
+.filter {
+  color: var(--text-muted-color);
+  border: 2px solid var(--border-soft-color);
+  border-radius: 4px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-width: 100px;
+  opacity: 0.5;
+}
+
+.filter:hover {
+  opacity: 1;
+}
+
+.filter:has(input:checked) {
+  font-weight: 500;
+  background-color: var(--primary-active-color);
+  color: var(--text-on-primary-color);
+  border: 2px solid var(--border-color);
+  opacity: 1;
+}
+
+.filter > input {
+  appearance: none;
+}
+
+.filter:hover {
+  transform: scale(1.01);
+}
+
+.filter:active {
+  transform: scale(0.99);
+}
+
+.filter-text {
+  flex-grow: 1;
+}
+
+.filter-counter {
+  font-family: var(--font-pixel);
+}
