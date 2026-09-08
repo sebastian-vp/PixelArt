@@ -2,9 +2,8 @@ import "./App.css";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { Favorites } from "@/pages/Favorites";
-import { Home } from "@/pages/Home";
-import { Template } from "@/templates/Template";
+import { Favorites, Home } from "@/pages";
+import { Template } from "@/templates";
 
 function App() {
   return (

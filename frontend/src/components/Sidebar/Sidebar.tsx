@@ -1,7 +1,7 @@
 import { Moon, Sun } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-import { useTheme } from "@/providers/theme";
+import { useTheme } from "@/hooks";
 
 import styles from "./Sidebar.module.css";
 
@@ -11,10 +11,10 @@ export function Sidebar() {
   function getLinkClass({ isActive }: { isActive: boolean }) {
     let classes = styles["nav-item"];
 
-    if(isActive) {
-      classes += (" " + styles["selected"]);
+    if (isActive) {
+      classes += " " + styles["selected"];
     }
-    
+
     return classes;
   }
 
@@ -38,24 +38,12 @@ export function Sidebar() {
       <div className={styles["theme"]}>
         <label className={styles["theme-option"]}>
           <Sun size={12} fill="currentColor" />
-          <input
-            className={styles["theme-input"]}
-            name="theme"
-            type="radio"
-            onChange={() => setTheme("light")}
-            checked={theme === "light"}
-          />
+          <input className={styles["theme-input"]} name="theme" type="radio" onChange={() => setTheme("light")} checked={theme === "light"} />
           Claro
         </label>
         <label className={styles["theme-option"]}>
           <Moon size={12} fill="currentColor" />
-          <input
-            className={styles["theme-input"]}
-            name="theme"
-            type="radio"
-            onChange={() => setTheme("dark")}
-            checked={theme === "dark"}
-          />
+          <input className={styles["theme-input"]} name="theme" type="radio" onChange={() => setTheme("dark")} checked={theme === "dark"} />
           Oscuro
         </label>
       </div>
