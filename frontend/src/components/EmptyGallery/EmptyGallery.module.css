@@ -1,0 +1,37 @@
+.background {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  border: 4px dashed var(--border-soft-color);
+  background-color: var(--surface-color);
+  padding: 48px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.square {
+  width: 112px;
+  height: 112px;
+  background: repeating-conic-gradient(var(--canvas-checker-a-color) 0% 25%, var(--canvas-checker-b-color) 0% 50%) 0/18px 18px;
+  border: 2px solid var(--canvas-grid-line-color);
+  margin-bottom: 32px;
+}
+
+.title {
+  color: var(--text-color);
+  font-family: var(--font-pixel);
+  font-size: var(--font-size-14);
+  font-weight: 500;
+  margin: 0;
+}
+
+.text {
+  color: var(--text-muted-color);
+}

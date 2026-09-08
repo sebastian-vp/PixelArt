@@ -10,7 +10,9 @@ export function Template() {
       <Sidebar />
       <div className={styles["content"]}>
         <Header />
-        <Outlet />
+        <main className={styles["main"]}>
+          <Outlet />
+        </main>
       </div>
     </div>
   );

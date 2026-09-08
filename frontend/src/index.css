@@ -95,6 +95,11 @@
   --favorite-color: #d1247a;
   --favorite-strong-color: #a9155f;
   --favorite-off-color: #b6b0a2; /* inactive star */
+
+  /* Pixel canvas (transparency checkerboard) */
+  --canvas-checker-a-color: #cfc7b4;
+  --canvas-checker-b-color: #ded7c6;
+  --canvas-grid-line-color: rgba(27, 24, 38, 0.18);
 }
 
 /* Dark Theme variables */
@@ -122,6 +127,10 @@
   --favorite-color: #ff5ea8;
   --favorite-strong-color: #ff5ea8;
   --favorite-off-color: #5d5674;
+  
+  --canvas-checker-a-color: #252131;
+  --canvas-checker-b-color: #1c1926;
+  --canvas-grid-line-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Editor paint palette: this is drawing data, not theme data,
