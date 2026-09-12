@@ -2,11 +2,8 @@ import "./App.css";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { Favorites, Home } from "@/pages";
+import { Favorites, Home, Login, Register } from "@/pages";
 import { Auth, Template } from "@/templates";
-
-import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
 
 function App() {
   return (
