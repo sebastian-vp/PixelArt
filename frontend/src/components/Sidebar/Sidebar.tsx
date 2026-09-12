@@ -1,13 +1,10 @@
-import { Moon, Sun } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-import { useTheme } from "@/hooks";
+import { ToggleTheme } from "@/components";
 
 import styles from "./Sidebar.module.css";
 
 export function Sidebar() {
-  const [theme, setTheme] = useTheme();
-
   function getLinkClass({ isActive }: { isActive: boolean }) {
     let classes = styles["nav-item"];
 
@@ -35,18 +32,7 @@ export function Sidebar() {
         </ul>
       </nav>
 
-      <div className={styles["theme"]}>
-        <label className={styles["theme-option"]}>
-          <Sun size={12} fill="currentColor" />
-          <input className={styles["theme-input"]} name="theme" type="radio" onChange={() => setTheme("light")} checked={theme === "light"} />
-          Claro
-        </label>
-        <label className={styles["theme-option"]}>
-          <Moon size={12} fill="currentColor" />
-          <input className={styles["theme-input"]} name="theme" type="radio" onChange={() => setTheme("dark")} checked={theme === "dark"} />
-          Oscuro
-        </label>
-      </div>
+      <ToggleTheme />
 
       <hr className={styles["divider"]} />
 
