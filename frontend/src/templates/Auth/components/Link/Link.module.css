@@ -1,0 +1,13 @@
+.link-container {
+  color: var(--text-muted-color);
+  font-size: var(--font-size-14);
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.link {
+  color: var(--primary-contrast-color);
+  font-weight: 600;
+  text-decoration: none;
+}

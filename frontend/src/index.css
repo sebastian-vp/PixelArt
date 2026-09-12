@@ -90,6 +90,7 @@
   --primary-color: #d6f56a;
   --primary-hover-color: #f1ffc7;
   --primary-active-color: #d6f56a;
+  --primary-contrast-color: #4f6b0c;
 
   /* Favorites and destructive actions (magenta) */
   --favorite-color: #d1247a;
@@ -100,6 +101,9 @@
   --canvas-checker-a-color: #cfc7b4;
   --canvas-checker-b-color: #ded7c6;
   --canvas-grid-line-color: rgba(27, 24, 38, 0.18);
+
+  /* Sprite ink in this theme */
+  --pixel-ink-color: #26222e;
 }
 
 /* Dark Theme variables */
@@ -123,6 +127,7 @@
   --primary-color: #c5f24a;
   --primary-hover-color: #30322a;
   --primary-active-color: #30322a;
+  --primary-contrast-color: #c5f24a;
 
   --favorite-color: #ff5ea8;
   --favorite-strong-color: #ff5ea8;
@@ -131,6 +136,8 @@
   --canvas-checker-a-color: #252131;
   --canvas-checker-b-color: #1c1926;
   --canvas-grid-line-color: rgba(255, 255, 255, 0.05);
+
+  --pixel-ink-color: #8b84a0;
 }
 
 /* Editor paint palette: this is drawing data, not theme data,
