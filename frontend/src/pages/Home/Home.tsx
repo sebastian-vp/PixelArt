@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { EmptyGallery } from "@/components";
+import { EmptyGallery } from "@/pages/components";
 
 import { Filter } from "./components";
 import styles from "./Home.module.css";

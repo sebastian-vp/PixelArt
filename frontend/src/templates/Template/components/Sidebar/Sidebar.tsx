@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-import { ToggleTheme } from "@/components";
+import { ToggleTheme } from "@/components/ToggleTheme";
 
 import styles from "./Sidebar.module.css";
 

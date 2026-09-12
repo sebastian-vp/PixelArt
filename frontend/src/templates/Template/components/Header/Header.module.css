@@ -8,7 +8,8 @@
   flex-grow: 1;
 }
 
-.title, .subtitle {
+.title,
+.subtitle {
   margin: 0;
   padding: 0;
 }

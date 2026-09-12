@@ -1,1 +1,0 @@
-export { EmptyGallery } from './EmptyGallery';

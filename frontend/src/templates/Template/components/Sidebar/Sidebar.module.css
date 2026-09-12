@@ -60,14 +60,16 @@
   background-color: var(--text-hover-color);
 }
 
-.selected, .selected:hover {
+.selected,
+.selected:hover {
   font-weight: 500;
   background-color: var(--primary-active-color);
   color: var(--text-on-primary-color);
   border-color: var(--border-color);
 }
 
-.selected::before, .selected:hover::before {
+.selected::before,
+.selected:hover::before {
   background-color: var(--text-on-primary-color);
 }
 
@@ -78,9 +80,9 @@
 }
 
 .user {
- display: flex;
- align-items: center;
- gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .avatar {

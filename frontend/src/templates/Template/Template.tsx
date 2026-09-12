@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-import { Header, Sidebar } from "@/components";
-
+import { Header, Sidebar } from "./components";
 import styles from "./Template.module.css";
 
 export function Template() {
