@@ -1,20 +1,12 @@
-import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import { ToggleTheme } from "@/components";
+import { useToast } from "@/hooks";
 
 import styles from "./Auth.module.css";
 
 export function Auth() {
-  const [toast, setToast] = useState<React.ReactElement | null>(null);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setToast(null);
-    }, 5000);
-
-    return () => clearTimeout(timeoutId);
-  }, [toast]);
+  const [toast, setToast] = useToast();
 
   return (
     <div className={styles["page"]}>
