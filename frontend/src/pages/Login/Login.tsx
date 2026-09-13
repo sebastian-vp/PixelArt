@@ -1,4 +1,4 @@
-import { type ReactElement, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 import { Button, Toast } from "@/components";
@@ -8,7 +8,7 @@ import { Header, Input, Link } from "@/templates/Auth";
 
 export function Login() {
   const navigate = useNavigate();
-  const setToast: (value: ReactElement) => void = useOutletContext();
+  const setToast: (value: React.ReactElement | null) => void = useOutletContext();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,6 +27,7 @@ export function Login() {
       return;
     }
 
+    setToast(null);
     navigate("/");
   }
 
