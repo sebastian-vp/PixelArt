@@ -104,6 +104,17 @@
 
   /* Sprite ink in this theme */
   --pixel-ink-color: #26222e;
+
+
+  /* Toast status colors — theme-independent: identical in light and dark */
+  --error-color: #c0392b;
+  --error-surface-color: #fff6f4;
+
+  --info-color: #2f5fa8;
+  --info-surface-color: #eef3fd;
+
+  --success-color: #7ea832;
+  --success-surface-color: #f2fbdf;
 }
 
 /* Dark Theme variables */

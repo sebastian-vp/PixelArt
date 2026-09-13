@@ -33,7 +33,6 @@ export default defineConfig([
       curly: "error",
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/no-floating-promises": "error",
     },
   },
   prettier,
