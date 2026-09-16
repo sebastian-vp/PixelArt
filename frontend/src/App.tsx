@@ -2,7 +2,7 @@ import "./App.css";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { Favorites, Home, Login, Register } from "@/pages";
+import { Editor, Favorites, Home, Login, Register } from "@/pages";
 import { Auth, Template } from "@/templates";
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="favorites" element={<Favorites />} />
         </Route>
+        <Route path="editor" element={<Editor />} />
         <Route path="/" element={<Auth />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

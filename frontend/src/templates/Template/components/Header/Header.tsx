@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/Button";
 
@@ -10,6 +10,7 @@ const TITLES: Record<string, { title: string; subtitle: string }> = {
 };
 
 export function Header() {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { title, subtitle } = TITLES[pathname];
 
@@ -19,7 +20,7 @@ export function Header() {
         <h1 className={styles["title"]}>{title}</h1>
         <p className={styles["subtitle"]}>{subtitle}</p>
       </div>
-      <Button text="+ Nuevo dibujo" onClick={() => {}} />
+      <Button text="+ Nuevo dibujo" onClick={() => navigate("/editor")} />
     </header>
   );
 }
