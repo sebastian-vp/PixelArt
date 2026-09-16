@@ -1,0 +1,84 @@
+.user {
+  position: relative;
+}
+
+.user-menu {
+  position: absolute;
+  left: 0;
+  bottom: 150%;
+  padding: 4px;
+  border: 2px solid var(--popover-border-color);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--surface-color);
+}
+
+.user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  font-size: var(--font-size-14);
+  color: var(--text-color);
+}
+
+.user-menu-item:hover {
+  color: var(--favorite-strong-color);
+  background-color: var(--favorite-tint-color);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.button:hover, .active {
+  background-color: var(--background-color);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  background-color: var(--favorite-color);
+  color: var(--text-on-favorite-color);
+  font-family: var(--font-pixel);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-10);
+}
+
+.user-info {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.user-name {
+  margin: 0;
+  color: var(--text-color);
+  font-size: var(--font-size-14);
+  font-weight: 600;
+}
+
+.user-email {
+  margin: 0;
+  color: var(--text-muted-color);
+  font-size: var(--font-size-12);
+}
+
+.chevron {
+  color: var(--text-color);
+}

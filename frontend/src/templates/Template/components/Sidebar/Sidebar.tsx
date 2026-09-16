@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 
 import { ToggleTheme } from "@/components/ToggleTheme";
 
+import { UserMenu } from "../UserMenu";
 import styles from "./Sidebar.module.css";
 
 export function Sidebar() {
@@ -36,15 +37,7 @@ export function Sidebar() {
 
       <hr className={styles["divider"]} />
 
-      <footer className={styles["user"]}>
-        <div className={styles["avatar"]} aria-hidden="true">
-          MR
-        </div>
-        <div className={styles["user-info"]}>
-          <p className={styles["user-name"]}>Maria Rojas</p>
-          <p className={styles["user-email"]}>maria@correo.com</p>
-        </div>
-      </footer>
+      <UserMenu name="Maria Rojas" email="maria@correo.com" />
     </aside>
   );
 }
