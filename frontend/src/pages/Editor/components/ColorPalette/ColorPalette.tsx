@@ -1,7 +1,58 @@
-export function ColorPalette() {
+import { COLORS } from "./colors";
+import styles from "./ColorPalette.module.css";
+import type { Color } from "./color.types";
+
+// tipo de props para el componente ColorPalette
+type Props = {
+  selectedColor: Color;
+  setSelectedColor: (color: Color) => void;
+};
+
+// componente ColorPalette que muestra la paleta de colores. Permite mostrar y cambiar el color seleccionado
+// recibe como props el color seleccionado y una función para actualizarlo
+export function ColorPalette({ selectedColor, setSelectedColor }: Props) {
   return (
-    <aside>
-      Paleta de color
-    </aside>
+    <div className={styles["background"]}>
+      <div className={styles["column"]}>
+        {/* Muestra el color actualmente seleccionado */}
+        <p className={styles["title"]}>Color activo</p>
+        <div className={styles["row"]}>
+          <div className={styles["selected-color"]} style={selectedColor ? { backgroundColor: selectedColor.code } : {}} />
+          <div className={styles["color-info"]}>
+            <p className={styles["accent-title"]}>{selectedColor ? selectedColor.code : "Ninguno"}</p>
+            <p className={styles["text"]}>{selectedColor ? selectedColor.name : "Ninguno"}</p>
+          </div>
+        </div>
+
+        {/* Muestra la paleta de colores disponibles */}
+        <p className={styles["title"]}>Paleta</p>
+        <div className={styles["grid"]}>
+          {COLORS.map((color) => (
+            <div
+              className={styles["color"]}
+              key={color.code}
+              style={{
+                backgroundColor: color.code,
+                border: color.code === selectedColor.code ? "2px solid var(--text-color)" : "none",
+              }}
+              onClick={() => setSelectedColor(color)}
+            />
+          ))}
+        </div>
+
+        {/* Muestra información del dibujo */}
+        <p className={styles["title"]}>Dibujo</p>
+        <div className={styles["row"]}>
+          <p className={styles["text"]}>Pixeles pintados</p>
+          {/* HARDCODED */}
+          <p className={styles["stat"]}>10</p>
+        </div>
+        <div className={styles["row"]}>
+          <p className={styles["text"]}>Colores usados</p>
+          {/* HARDCODED */}
+          <p className={styles["stat"]}>2</p>
+        </div>
+      </div>
+    </div>
   );
 }
