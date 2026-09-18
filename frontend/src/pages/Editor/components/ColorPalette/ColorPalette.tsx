@@ -1,6 +1,6 @@
-import { COLORS } from "./colors";
-import styles from "./ColorPalette.module.css";
 import type { Color } from "./color.types";
+import styles from "./ColorPalette.module.css";
+import { COLORS } from "./colors";
 
 // tipo de props para el componente ColorPalette
 type Props = {

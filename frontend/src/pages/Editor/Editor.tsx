@@ -1,7 +1,8 @@
-import { ColorPalette, DrawingCanvas, EditorHeader, ToolBar } from "./components";
-import { COLORS, type Color } from "./components/ColorPalette";
-import styles from "./Editor.module.css";
 import { useState } from "react";
+
+import { ColorPalette, DrawingCanvas, EditorHeader, ToolBar } from "./components";
+import { type Color, COLORS } from "./components/ColorPalette";
+import styles from "./Editor.module.css";
 
 export function Editor() {
   const [selectedColor, setSelectedColor] = useState<Color>(COLORS[0]);
