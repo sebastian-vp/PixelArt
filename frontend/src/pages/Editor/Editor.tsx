@@ -6,19 +6,18 @@ import styles from "./Editor.module.css";
 
 export function Editor() {
   const [selectedColor, setSelectedColor] = useState<Color>(COLORS[0]);
+  const [selectedTool, setSelectedTool] = useState<"pincel" | "eraser">("pincel");
+
   return (
     <div className={styles["page"]}>
-      {/* Sebastián: build the editor header inside this component. */}
       <EditorHeader />
 
       <div className={styles["workspace"]}>
         {/* Santiago: build the painting and erasing tools inside this component. */}
         <ToolBar />
 
-        {/* Sebastián: build the drawing area and pixel grid inside this component. */}
-        <DrawingCanvas />
+        <DrawingCanvas selectedColor={selectedColor.code} selectedTool={selectedTool} />
 
-        {/* Fran: build the active color and palette controls inside this component. */}
         <ColorPalette selectedColor={selectedColor} setSelectedColor={setSelectedColor} />
       </div>
     </div>

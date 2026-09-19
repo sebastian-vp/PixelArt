@@ -1,0 +1,51 @@
+.editor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  --pixel-size: 32px;
+  --canvas-size: 512px;
+
+  width: calc(var(--canvas-size) + 20px);
+  height: calc(var(--canvas-size) + 20px);
+  padding: 8px;
+  border: 2px solid var(--popover-border-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  box-shadow: 7px 7px 0 var(--shadow-color);
+}
+
+.canva {
+  display: flex;
+  flex-direction: column;
+  width: var(--canvas-size);
+  height: var(--canvas-size);
+  background-color: var(--canvas-checker-a-color);
+  background-image: conic-gradient(var(--canvas-checker-b-color) 25%, transparent 0 50%, var(--canvas-checker-b-color) 0 75%, transparent 0);
+  background-size: 32px 32px;
+}
+
+.row {
+  display: flex;
+  flex: 0 0 var(--pixel-size);
+  height: var(--pixel-size);
+}
+
+.pixel {
+  flex: 0 0 var(--pixel-size);
+  width: var(--pixel-size);
+  height: var(--pixel-size);
+  padding: 0;
+  border: 1px solid var(--canvas-grid-line-color);
+  border-radius: 0;
+  background-color: transparent;
+  cursor: crosshair;
+  appearance: none;
+}
+
+.pixel:hover {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+}
