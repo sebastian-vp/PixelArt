@@ -13,8 +13,7 @@ export function Editor() {
       <EditorHeader />
 
       <div className={styles["workspace"]}>
-        {/* Santiago: build the painting and erasing tools inside this component. */}
-        <ToolBar />
+        <ToolBar selectedTool={selectedTool} setSelectedTool={setSelectedTool} />
 
         <DrawingCanvas selectedColor={selectedColor.code} selectedTool={selectedTool} />
 

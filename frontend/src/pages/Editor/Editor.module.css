@@ -7,5 +7,5 @@
 .workspace {
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(160px, 220px) minmax(0, 1fr) minmax(220px, 280px);
+  grid-template-columns: auto minmax(0, 1fr) minmax(220px, 280px);
 }
