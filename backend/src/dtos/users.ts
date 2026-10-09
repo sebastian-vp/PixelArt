@@ -4,7 +4,7 @@ const nonEmptyText = z.string().refine((value) => value.trim().length > 0);
 
 export const createUserSchema = z.object({
   name: nonEmptyText,
-  email: nonEmptyText,
+  email: z.email(),
   password: nonEmptyText,
 });
 

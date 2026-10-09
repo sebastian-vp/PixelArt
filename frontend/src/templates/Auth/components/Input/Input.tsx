@@ -5,7 +5,7 @@ interface Props {
   placeholder: string;
   value: string;
   setValue: (value: string) => void;
-  type?: "text" | "password";
+  type?: "text" | "password" | "email";
 }
 
 export function Input({ label, placeholder, value, setValue, type = "text" }: Props) {

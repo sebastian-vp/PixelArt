@@ -3,12 +3,13 @@ import styles from "./Button.module.css";
 interface Props {
   text: string;
   onClick: () => void;
-  customStyles?: React.CSSProperties
+  disabled?: boolean;
+  customStyles?: React.CSSProperties;
 }
 
-export function Button({ text, onClick, customStyles }: Props) {
+export function Button({ text, onClick, customStyles, disabled = false }: Props) {
   return (
-    <button onClick={onClick} className={styles["button"]} style={customStyles} >
+    <button disabled={disabled} onClick={onClick} className={styles["button"]} style={customStyles}>
       {text}
     </button>
   );
