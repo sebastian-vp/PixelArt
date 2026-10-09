@@ -50,7 +50,19 @@ frontend/
 
 ## Backend
 
-No configurado aún.
+TypeScript + Express + Mongoose.
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+```
+
+Configura `MONGODB_URI` en `.env` con la URI de MongoDB antes de usar el CRUD. El puerto predeterminado es `3001`.
+
+- `npm run dev`: inicia el servidor de desarrollo.
+- `npm run build`: compila TypeScript.
+- `npm start`: ejecuta el servidor compilado.
 
 ## Base de datos
 
