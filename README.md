@@ -4,6 +4,30 @@ Editor web de pixel art donde cada usuario crea sus dibujos en el navegador y lo
 
 Proyecto del curso de Aplicaciones Web Reactivas.
 
+## Docker
+
+Requiere Docker Desktop en ejecución. La configuración está en `docker-compose.yaml`. Desde la raíz del proyecto:
+
+```bash
+cp .env.example .env
+docker compose up --build -d
+```
+
+- Frontend: `http://localhost:5173`.
+- Backend: `http://localhost:3001/api`.
+- MongoDB: servicio interno `mongo:27017`, sin puerto publicado al host.
+
+`MONGO_DATABASE` en el `.env` raíz define el nombre de la base de datos (por defecto, `pixelart`). Compose proporciona al backend su `MONGODB_URI` usando el hostname `mongo`; `localhost` dentro del contenedor apunta al propio contenedor. El `.env` del backend solo se usa al ejecutar Node fuera de Docker.
+
+Los cambios en `src` se reflejan en los contenedores de desarrollo. Si cambian las dependencias, vuelve a ejecutar `docker compose up --build -d`. Vite redirige las llamadas `/api` al backend.
+
+```bash
+docker compose logs -f backend
+docker compose down
+```
+
+`docker compose down` detiene el stack y conserva los dibujos y usuarios en el volumen nombrado `mongo_data`.
+
 ## Frontend
 
 ### Stack
