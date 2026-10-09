@@ -20,9 +20,12 @@ export function ThemeProvider({ children }: Props) {
   });
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  return <ThemeContext value={{ theme, setTheme }}>{children}</ThemeContext>;
+  return (
+    <ThemeContext value={{ theme, setTheme }}>
+      <div data-theme={theme}>{children}</div>
+    </ThemeContext>
+  );
 }

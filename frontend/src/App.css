@@ -4,5 +4,9 @@ body {
   font-family: var(--font-sans);
   font-size: var(--font-size-14);
   font-weight: 400;
+}
+
+[data-theme] {
+  min-height: 100vh;
   background-color: var(--background-color);
 }
