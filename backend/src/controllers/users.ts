@@ -4,13 +4,13 @@ import * as usersService from "#src/services/users";
 import { createUserSchema, updateUserSchema } from "#src/dtos/users";
 
 export const listUsers: RequestHandler = async (_request, response) => {
-  const users = await usersService.listUsers();
+  const users = await usersService.listUsers(response.locals.session.user.id);
 
   response.json(users);
 };
 
 export const getUser: RequestHandler<{ id: string }> = async (request, response) => {
-  const user = await usersService.getUser(request.params.id);
+  const user = await usersService.getUser(request.params.id, response.locals.session.user.id);
 
   response.json(user);
 };
@@ -24,13 +24,13 @@ export const createUser: RequestHandler = async (request, response) => {
 
 export const updateUser: RequestHandler<{ id: string }> = async (request, response) => {
   const fields = updateUserSchema.parse(request.body);
-  const user = await usersService.updateUser(request.params.id, fields);
+  const user = await usersService.updateUser(request.params.id, fields, response.locals.session.user.id);
 
   response.json(user);
 };
 
 export const deleteUser: RequestHandler<{ id: string }> = async (request, response) => {
-  await usersService.deleteUser(request.params.id);
+  await usersService.deleteUser(request.params.id, response.locals.session.user.id);
 
   response.status(204).end();
 };

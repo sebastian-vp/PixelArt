@@ -1,5 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
 
 import authRouter from "#src/routes/auth";
 import usersRouter from "#src/routes/users";
@@ -9,6 +10,10 @@ import { errorHandler } from "#src/utils/middleware";
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+
+app.get("/api/health", (_request, response) => {
+  response.status(mongoose.connection.readyState === 1 ? 204 : 503).end();
+});
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);

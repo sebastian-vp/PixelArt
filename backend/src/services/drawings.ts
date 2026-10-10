@@ -1,14 +1,13 @@
 import type { CreateDrawingDto, UpdateDrawingDto } from "#src/dtos/drawings";
 import { Drawing } from "#src/models/drawing.model";
-import { User } from "#src/models/user.model";
-import { InvalidInputError, NotFoundError } from "#src/utils/errors";
+import { NotFoundError } from "#src/utils/errors";
 
-export const listDrawings = async () => {
-  return Drawing.find({});
+export const listDrawings = async (userId: string) => {
+  return Drawing.find({ userId });
 };
 
-export const getDrawing = async (id: string) => {
-  const drawing = await Drawing.findById(id);
+export const getDrawing = async (id: string, userId: string) => {
+  const drawing = await Drawing.findOne({ _id: id, userId });
 
   if (!drawing) {
     throw new NotFoundError("Drawing not found");
@@ -17,19 +16,15 @@ export const getDrawing = async (id: string) => {
   return drawing;
 };
 
-export const createDrawing = async (fields: CreateDrawingDto) => {
-  const drawing = new Drawing(fields);
+export const createDrawing = async (fields: CreateDrawingDto, userId: string) => {
+  const drawing = new Drawing({ ...fields, userId });
   await drawing.validate();
-
-  if (!(await User.exists({ _id: drawing.userId }))) {
-    throw new InvalidInputError("User not found");
-  }
 
   return drawing.save();
 };
 
-export const updateDrawing = async (id: string, fields: UpdateDrawingDto) => {
-  const drawing = await getDrawing(id);
+export const updateDrawing = async (id: string, fields: UpdateDrawingDto, userId: string) => {
+  const drawing = await getDrawing(id, userId);
 
   if (fields.title !== undefined) drawing.title = fields.title;
   if (fields.width !== undefined) drawing.width = fields.width;
@@ -42,10 +37,8 @@ export const updateDrawing = async (id: string, fields: UpdateDrawingDto) => {
   return drawing.save();
 };
 
-export const deleteDrawing = async (id: string) => {
-  const drawing = await Drawing.findByIdAndDelete(id);
+export const deleteDrawing = async (id: string, userId: string) => {
+  const drawing = await getDrawing(id, userId);
 
-  if (!drawing) {
-    throw new NotFoundError("Drawing not found");
-  }
+  await drawing.deleteOne();
 };

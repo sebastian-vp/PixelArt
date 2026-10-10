@@ -8,12 +8,16 @@ import {
   deleteDrawing,
 } from "#src/controllers/drawings";
 
+import { requireCsrf, requireSession } from "#src/utils/auth";
+
 const router = Router();
 
+router.use(requireSession);
+
 router.get("/", listDrawings);
-router.post("/", createDrawing);
+router.post("/", requireCsrf, createDrawing);
 router.get("/:id", getDrawing);
-router.put("/:id", updateDrawing);
-router.delete("/:id", deleteDrawing);
+router.put("/:id", requireCsrf, updateDrawing);
+router.delete("/:id", requireCsrf, deleteDrawing);
 
 export default router;

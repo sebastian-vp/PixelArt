@@ -1,14 +1,18 @@
 import bcrypt from "bcrypt";
 
 import { User } from "#src/models/user.model";
-import { NotFoundError } from "#src/utils/errors";
+import { ForbiddenError, NotFoundError } from "#src/utils/errors";
 import type { CreateUserDto, UpdateUserDto } from "#src/dtos/users";
 
-export const listUsers = async () => {
-  return User.find({});
+export const listUsers = async (userId: string) => {
+  return User.find({ _id: userId });
 };
 
-export const getUser = async (id: string) => {
+export const getUser = async (id: string, userId: string) => {
+  if (id !== userId) {
+    throw new ForbiddenError("Access denied");
+  }
+
   const user = await User.findById(id);
 
   if (!user) {
@@ -27,10 +31,10 @@ export const createUser = async (fields: CreateUserDto) => {
   return user.save();
 };
 
-export const updateUser = async (id: string, fields: UpdateUserDto) => {
+export const updateUser = async (id: string, fields: UpdateUserDto, userId: string) => {
   const { name, email, password } = fields;
 
-  const user = await getUser(id);
+  const user = await getUser(id, userId);
 
   if (name !== undefined) user.name = name;
   if (email !== undefined) user.email = email;
@@ -39,10 +43,8 @@ export const updateUser = async (id: string, fields: UpdateUserDto) => {
   return user.save();
 };
 
-export const deleteUser = async (id: string) => {
-  const user = await User.findByIdAndDelete(id);
+export const deleteUser = async (id: string, userId: string) => {
+  const user = await getUser(id, userId);
 
-  if (!user) {
-    throw new NotFoundError("User not found");
-  }
+  await user.deleteOne();
 };
