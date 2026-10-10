@@ -19,6 +19,7 @@ services:
     restart: unless-stopped
     environment:
       PORT: "3001"
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in the root .env}
       MONGODB_URI: mongodb://mongo:27017/${MONGO_DATABASE:-pixelart}
     ports:
       - "127.0.0.1:3001:3001"

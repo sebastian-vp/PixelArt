@@ -2,10 +2,12 @@ import type { ErrorRequestHandler } from "express";
 import mongoose from "mongoose";
 import { ZodError } from "zod";
 
-import { InvalidInputError, NotFoundError } from "#src/utils/errors";
+import { InvalidInputError, NotFoundError, UnauthorizedError } from "#src/utils/errors";
 
 export const errorHandler: ErrorRequestHandler = (error: unknown, _request, response, _next) => {
-  if (error instanceof NotFoundError) {
+  if (error instanceof UnauthorizedError) {
+    response.status(401).json({ error: error.message });
+  } else if (error instanceof NotFoundError) {
     response.status(404).json({ error: error.message });
   } else if (error instanceof InvalidInputError) {
     response.status(400).json({ error: error.message });

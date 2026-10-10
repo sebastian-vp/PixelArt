@@ -1,5 +1,6 @@
 import express from "express";
 
+import authRouter from "#src/routes/auth";
 import usersRouter from "#src/routes/users";
 import drawingsRouter from "#src/routes/drawings";
 import { errorHandler } from "#src/utils/middleware";
@@ -7,6 +8,7 @@ import { errorHandler } from "#src/utils/middleware";
 const app = express();
 app.use(express.json());
 
+app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/drawings", drawingsRouter);
 
