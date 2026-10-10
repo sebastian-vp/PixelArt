@@ -1,9 +1,9 @@
 import { ChevronDown, ChevronUp, LogOut } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 import { Toast } from "@/components";
-import { useAuth, useToast } from "@/hooks";
+import { useAuth } from "@/hooks";
 
 import styles from "./UserMenu.module.css";
 
@@ -17,7 +17,7 @@ export function UserMenu({ name, email }: Props) {
   const footerRef = useRef<HTMLElement | null>(null);
   const navigate = useNavigate();
   const { signOut } = useAuth();
-  const [toast, setToast] = useToast();
+  const setToast: (value: React.ReactElement | null) => void = useOutletContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function onLogout() {
@@ -56,11 +56,6 @@ export function UserMenu({ name, email }: Props) {
 
   return (
     <footer className={styles["user"]} ref={footerRef}>
-      {toast && (
-        <div className={styles["container-toast"]} role="alert">
-          {toast}
-        </div>
-      )}
       {isMenuOPen && (
         <div className={styles["user-menu"]}>
           <button className={styles["user-menu-item"]} onClick={onLogout} disabled={isSubmitting}>

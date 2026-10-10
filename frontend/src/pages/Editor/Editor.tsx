@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 import { Toast } from "@/components";
-import { useAuth, useToast } from "@/hooks";
+import { useAuth } from "@/hooks";
 import { saveDrawing } from "@/services/drawings";
 
 import { ColorPalette, DrawingCanvas, EditorHeader, ToolBar } from "./components";
@@ -17,7 +18,7 @@ export function Editor() {
   const [grid, setGrid] = useState(() => Array.from({ length: 16 }, () => Array<string | null>(16).fill(null)));
   const [drawingId, setDrawingId] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [toast, setToast] = useToast();
+  const setToast: (value: React.ReactElement | null) => void = useOutletContext();
   const { clearSession } = useAuth();
 
   function updateColor(row: number, col: number) {
@@ -61,11 +62,6 @@ export function Editor() {
   return (
     <div className={styles["page"]}>
       <EditorHeader title={title} setTitle={setTitle} onSave={onSave} isSubmitting={isSubmitting} />
-      {toast && (
-        <div className={styles["container-toast"]} role="status">
-          {toast}
-        </div>
-      )}
 
       <div className={styles["workspace"]}>
         <ToolBar selectedTool={selectedTool} setSelectedTool={setSelectedTool} />

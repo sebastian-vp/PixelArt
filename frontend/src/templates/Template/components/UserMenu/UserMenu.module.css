@@ -45,7 +45,8 @@
   border-radius: 4px;
 }
 
-.button:hover, .active {
+.button:hover,
+.active {
   background-color: var(--background-color);
 }
 
@@ -81,11 +82,4 @@
 
 .chevron {
   color: var(--text-color);
-}
-
-.container-toast {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 100;
 }

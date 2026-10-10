@@ -1,12 +1,12 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useOutletContext } from "react-router-dom";
 
 import { ToggleTheme } from "@/components";
-import { useAuth, useToast } from "@/hooks";
+import { useAuth } from "@/hooks";
 
 import styles from "./Auth.module.css";
 
 export function Auth() {
-  const [toast, setToast] = useToast();
+  const setToast: (value: React.ReactElement | null) => void = useOutletContext();
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
@@ -22,7 +22,6 @@ export function Auth() {
       <div className={styles["container-toggle-theme"]}>
         <ToggleTheme />
       </div>
-      {toast && <div className={styles["container-toast"]}>{toast}</div>}
       <div>
         <header>
           <p className={styles["brand"]}>PixelArt</p>

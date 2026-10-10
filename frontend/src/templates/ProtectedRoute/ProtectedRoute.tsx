@@ -1,8 +1,9 @@
-import { Link, Navigate, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet, useOutletContext } from "react-router-dom";
 
 import { useAuth } from "@/hooks";
 
 export function ProtectedRoute() {
+  const setToast: (value: React.ReactElement | null) => void = useOutletContext();
   const { user, isLoading, error } = useAuth();
 
   if (isLoading) {
@@ -22,5 +23,5 @@ export function ProtectedRoute() {
     return <Navigate to="/login" replace />;
   }
 
-  return <Outlet />;
+  return <Outlet context={setToast} />;
 }

@@ -1,0 +1,13 @@
+.container-toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  z-index: 100;
+}
+
+.container-toast > div {
+  min-width: 0;
+}
