@@ -25,3 +25,13 @@ export const me: RequestHandler = async (request, response) => {
   response.setHeader("X-CSRF-Token", session.csrf);
   response.json(session.user);
 };
+
+export const logout: RequestHandler = (_request, response) => {
+  response.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/api",
+  });
+  response.status(204).end();
+};
