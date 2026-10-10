@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { getSession, login } from "@/services/auth";
+import { getSession, login, logout } from "@/services/auth";
 
 import { AuthContext } from "./auth.context";
 import type { AuthUser, LoginInput } from "./auth.types";
@@ -51,5 +51,13 @@ export function AuthProvider({ children }: Props) {
     setError(null);
   }
 
-  return <AuthContext value={{ user, isLoading, error, signIn }}>{children}</AuthContext>;
+  async function signOut() {
+    await logout();
+
+    localStorage.removeItem("csrfToken");
+    setUser(null);
+    setError(null);
+  }
+
+  return <AuthContext value={{ user, isLoading, error, signIn, signOut }}>{children}</AuthContext>;
 }

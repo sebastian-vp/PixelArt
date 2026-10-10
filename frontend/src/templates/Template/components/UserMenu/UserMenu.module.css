@@ -82,3 +82,10 @@
 .chevron {
   color: var(--text-color);
 }
+
+.container-toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 100;
+}

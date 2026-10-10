@@ -14,4 +14,5 @@ export interface AuthState {
   isLoading: boolean;
   error: string | null;
   signIn: (input: LoginInput) => Promise<void>;
+  signOut: () => Promise<void>;
 }

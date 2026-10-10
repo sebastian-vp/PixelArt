@@ -2,6 +2,9 @@ import { ChevronDown, ChevronUp, LogOut } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { Toast } from "@/components";
+import { useAuth, useToast } from "@/hooks";
+
 import styles from "./UserMenu.module.css";
 
 interface Props {
@@ -13,6 +16,27 @@ export function UserMenu({ name, email }: Props) {
   const [isMenuOPen, setIsMenuOpen] = useState(false);
   const footerRef = useRef<HTMLElement | null>(null);
   const navigate = useNavigate();
+  const { signOut } = useAuth();
+  const [toast, setToast] = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function onLogout() {
+    if (isSubmitting) return;
+
+    setToast(null);
+    setIsSubmitting(true);
+
+    try {
+      await signOut();
+      navigate("/login");
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : "No pudimos cerrar tu sesión. Inténtalo nuevamente.";
+
+      setToast(<Toast type="error" title="No se pudo cerrar la sesión" message={message} />);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   const initials = name.split(" ").reduce<string>((acc, i) => acc + i.at(0), "");
 
@@ -32,11 +56,16 @@ export function UserMenu({ name, email }: Props) {
 
   return (
     <footer className={styles["user"]} ref={footerRef}>
+      {toast && (
+        <div className={styles["container-toast"]} role="alert">
+          {toast}
+        </div>
+      )}
       {isMenuOPen && (
         <div className={styles["user-menu"]}>
-          <button className={styles["user-menu-item"]} onClick={() => navigate("/login")}>
+          <button className={styles["user-menu-item"]} onClick={onLogout} disabled={isSubmitting}>
             <LogOut size={20} />
-            Cerrar sesión
+            {isSubmitting ? "Cerrando sesión…" : "Cerrar sesión"}
           </button>
         </div>
       )}

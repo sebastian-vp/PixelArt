@@ -37,3 +37,11 @@ export async function getSession(signal: AbortSignal) {
     throw new Error("No pudimos recuperar tu sesión. Inténtalo nuevamente.", { cause: error });
   }
 }
+
+export async function logout(): Promise<void> {
+  try {
+    await axios.post("/api/auth/logout", undefined, { withCredentials: true });
+  } catch (error: unknown) {
+    throw new Error("No pudimos cerrar tu sesión. Inténtalo nuevamente.", { cause: error });
+  }
+}
