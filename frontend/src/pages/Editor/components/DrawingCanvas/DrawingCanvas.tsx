@@ -1,23 +1,12 @@
-import { useState } from "react";
-
 import styles from "./DrawingCanvas.module.css";
 
 interface Props {
-  selectedColor: string;
-  selectedTool: "pincel" | "eraser";
+  grid: (string | null)[][];
+  updateColor: (row: number, col: number) => void;
+  disabled: boolean;
 }
 
-export function DrawingCanvas({ selectedColor, selectedTool }: Props) {
-  const [grid, setGrid] = useState(() => Array.from({ length: 16 }, () => Array<string | null>(16).fill(null)));
-
-  function updateColor(row: number, col: number) {
-    setGrid((currentGrid) =>
-      currentGrid.map((currentRow, i) =>
-        currentRow.map((color, j) => (i === row && j === col ? (selectedTool === "pincel" ? selectedColor : null) : color)),
-      ),
-    );
-  }
-
+export function DrawingCanvas({ grid, updateColor, disabled }: Props) {
   return (
     <section className={styles["editor"]}>
       <div className={styles["container"]}>
@@ -27,6 +16,8 @@ export function DrawingCanvas({ selectedColor, selectedTool }: Props) {
               {row.map((color, j) => (
                 <button
                   className={styles["pixel"]}
+                  aria-label={`Pixel ${i + 1}, ${j + 1}`}
+                  disabled={disabled}
                   key={j}
                   style={{ backgroundColor: color !== null ? color : "" }}
                   onClick={() => updateColor(i, j)}

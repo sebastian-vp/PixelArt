@@ -54,10 +54,14 @@ export function AuthProvider({ children }: Props) {
   async function signOut() {
     await logout();
 
+    clearSession();
+  }
+
+  function clearSession() {
     localStorage.removeItem("csrfToken");
     setUser(null);
     setError(null);
   }
 
-  return <AuthContext value={{ user, isLoading, error, signIn, signOut }}>{children}</AuthContext>;
+  return <AuthContext value={{ user, isLoading, error, signIn, signOut, clearSession }}>{children}</AuthContext>;
 }

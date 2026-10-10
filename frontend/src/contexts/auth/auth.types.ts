@@ -15,4 +15,5 @@ export interface AuthState {
   error: string | null;
   signIn: (input: LoginInput) => Promise<void>;
   signOut: () => Promise<void>;
+  clearSession: () => void;
 }

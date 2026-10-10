@@ -9,3 +9,10 @@
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) minmax(220px, 280px);
 }
+
+.container-toast {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 100;
+}
