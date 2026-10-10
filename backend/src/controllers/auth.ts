@@ -17,3 +17,11 @@ export const login: RequestHandler = async (request, response) => {
   response.setHeader("X-CSRF-Token", session.csrf);
   response.json(session.user);
 };
+
+export const me: RequestHandler = async (request, response) => {
+  const token: unknown = request.cookies?.token;
+  const session = await authService.getSession(token);
+
+  response.setHeader("X-CSRF-Token", session.csrf);
+  response.json(session.user);
+};
