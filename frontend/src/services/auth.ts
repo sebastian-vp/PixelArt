@@ -40,8 +40,15 @@ export async function getSession(signal: AbortSignal) {
 
 export async function logout(): Promise<void> {
   try {
-    await axios.post("/api/auth/logout", undefined, { withCredentials: true });
+    await axios.post("/api/auth/logout", undefined, {
+      withCredentials: true,
+      headers: { "X-CSRF-Token": localStorage.getItem("csrfToken") },
+    });
   } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      return;
+    }
+
     throw new Error("No pudimos cerrar tu sesión. Inténtalo nuevamente.", { cause: error });
   }
 }

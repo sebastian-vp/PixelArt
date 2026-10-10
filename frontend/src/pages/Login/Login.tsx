@@ -32,7 +32,7 @@ export function Login() {
 
     try {
       await signIn({ email: email.trim(), password });
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "No pudimos iniciar sesión. Inténtalo nuevamente.";
 

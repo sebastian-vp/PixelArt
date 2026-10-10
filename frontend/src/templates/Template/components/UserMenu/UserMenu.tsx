@@ -28,7 +28,7 @@ export function UserMenu({ name, email }: Props) {
 
     try {
       await signOut();
-      navigate("/login");
+      navigate("/login", { replace: true });
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "No pudimos cerrar tu sesión. Inténtalo nuevamente.";
 
