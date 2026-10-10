@@ -1,0 +1,117 @@
+.card {
+  min-width: 0;
+  overflow: hidden;
+  border: 2px solid var(--popover-border-color);
+  border-radius: 2px;
+  background-color: var(--surface-color);
+  box-shadow: 3px 3px var(--shadow-soft-color);
+}
+
+.preview {
+  aspect-ratio: 8 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid var(--popover-border-color);
+  background-image: conic-gradient(
+    var(--canvas-checker-a-color) 25%,
+    var(--canvas-checker-b-color) 0 50%,
+    var(--canvas-checker-a-color) 0 75%,
+    var(--canvas-checker-b-color) 0
+  );
+  background-size: 12px 12px;
+}
+
+.pixel-art {
+  display: grid;
+  flex-shrink: 0;
+}
+
+.info {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title-row,
+.actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.title {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--font-size-14);
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.favorite {
+  flex-shrink: 0;
+  border: 0;
+  padding: 0;
+  display: inline-flex;
+  background: transparent;
+  color: var(--favorite-off-color);
+  cursor: pointer;
+}
+
+.favorite-active {
+  color: var(--favorite-color);
+}
+
+.dimensions {
+  font-family: var(--font-pixel);
+  font-size: var(--font-size-10);
+  color: var(--text-muted-color);
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+}
+
+.open,
+.delete {
+  padding: 3px 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--popover-border-color);
+  border-radius: 2px;
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-12);
+  cursor: pointer;
+}
+
+.delete {
+  padding: 3px;
+  color: var(--favorite-off-color);
+  border-color: var(--border-soft-color);
+}
+
+.open:hover:enabled {
+  background-color: var(--primary-color);
+}
+
+.delete:hover:enabled {
+  border-color: var(--favorite-color);
+  color: var(--favorite-color);
+}
+
+.card button:disabled {
+  cursor: default;
+}
+
+.card button:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
