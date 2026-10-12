@@ -5,6 +5,7 @@ export interface DrawingInput {
   width: number;
   height: number;
   pixels: (string | null)[];
+  isFavorite?: boolean;
 }
 
 export interface Drawing extends DrawingInput {
@@ -53,5 +54,22 @@ export async function listDrawings(signal: AbortSignal): Promise<Drawing[]> {
     }
 
     throw new Error("No pudimos cargar tus dibujos. Inténtalo nuevamente.", { cause: error });
+  }
+}
+
+export async function getDrawing(id: string, signal: AbortSignal): Promise<Drawing> {
+  try {
+    const response = await axios.get<Drawing>(`/api/drawings/${id}`, { withCredentials: true, signal });
+
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) throw error;
+      if (error.response?.status === 404) {
+        throw new Error("Este dibujo no existe o no tienes acceso a él.", { cause: error });
+      }
+    }
+
+    throw new Error("No pudimos abrir tu dibujo. Inténtalo nuevamente.", { cause: error });
   }
 }

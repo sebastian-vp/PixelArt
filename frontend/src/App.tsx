@@ -16,6 +16,7 @@ function App() {
               <Route path="favorites" element={<Favorites />} />
             </Route>
             <Route path="editor" element={<Editor />} />
+            <Route path="editor/:id" element={<Editor />} />
           </Route>
           <Route path="/" element={<Auth />}>
             <Route path="login" element={<Login />} />

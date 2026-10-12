@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 import { Button, Toast } from "@/components";
 import { useAuth } from "@/hooks";
@@ -11,6 +11,7 @@ import { Filter } from "./components";
 import styles from "./Home.module.css";
 
 export function Home() {
+  const navigate = useNavigate();
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [allDrawings, setAllDrawings] = useState<DrawingCardData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -89,7 +90,7 @@ export function Home() {
         ) : drawings.length > 0 ? (
           <div className={styles["cards"]}>
             {drawings.map((drawing) => (
-              <DrawingCard key={drawing.id} drawing={drawing} />
+              <DrawingCard key={drawing.id} drawing={drawing} onOpen={(drawing) => navigate(`/editor/${drawing.id}`)} />
             ))}
           </div>
         ) : (

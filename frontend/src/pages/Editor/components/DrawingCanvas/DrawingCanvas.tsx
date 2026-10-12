@@ -9,8 +9,8 @@ interface Props {
 export function DrawingCanvas({ grid, updateColor, disabled }: Props) {
   return (
     <section className={styles["editor"]}>
-      <div className={styles["container"]}>
-        <div className={styles["canva"]}>
+      <div className={styles["container"]} style={{ width: grid[0].length * 32 + 20, height: grid.length * 32 + 20 }}>
+        <div className={styles["canva"]} style={{ width: grid[0].length * 32, height: grid.length * 32 }}>
           {grid.map((row, i) => (
             <div key={i} className={styles["row"]}>
               {row.map((color, j) => (
