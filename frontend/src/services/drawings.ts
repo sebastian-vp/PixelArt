@@ -89,3 +89,22 @@ export async function deleteDrawing(id: string): Promise<void> {
     throw new Error("No pudimos eliminar tu dibujo. Inténtalo nuevamente.", { cause: error });
   }
 }
+
+export async function setFavorite(id: string, isFavorite: boolean): Promise<Drawing> {
+  try {
+    const response = await axios.put<Drawing>(
+      `/api/drawings/${id}`,
+      { isFavorite },
+      {
+        withCredentials: true,
+        headers: { "X-CSRF-Token": localStorage.getItem("csrfToken") },
+      },
+    );
+
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) throw error;
+
+    throw new Error("No pudimos actualizar el favorito. Inténtalo nuevamente.", { cause: error });
+  }
+}

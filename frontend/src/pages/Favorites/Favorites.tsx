@@ -1,3 +1,5 @@
+import { DrawingGallery } from "@/pages/components";
+
 export function Favorites() {
-  return <div>favorites</div>;
+  return <DrawingGallery favoritesOnly />;
 }

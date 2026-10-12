@@ -6,7 +6,7 @@ import styles from "./Header.module.css";
 
 const TITLES: Record<string, { title: string; subtitle: string }> = {
   "/": { title: "Mis dibujos", subtitle: "dibujos guardados en tu cuenta" },
-  "/favorites": { title: "Favorites", subtitle: "dibujos marcados como favoritos" },
+  "/favorites": { title: "Favoritos", subtitle: "dibujos marcados como favoritos" },
 };
 
 export function Header() {
