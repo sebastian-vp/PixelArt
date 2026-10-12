@@ -107,7 +107,7 @@ Configura `MONGODB_URI` en `.env` con la URI de MongoDB antes de usar el CRUD. E
 |-------|------|----------------------------|
 | `_id` | `ObjectId` | Identificador único del documento, generado automáticamente. |
 | `userId` | `ObjectId` | Referencia al modelo `User` del propietario y creador del dibujo. Obligatorio e inmutable tras la creación. |
-| `title` | `String` | Título del dibujo. |
+| `title` | `String` | Título del dibujo. Obligatorio. |
 | `width` | `Number` | Ancho del dibujo en celdas. Entero positivo y obligatorio. |
 | `height` | `Number` | Alto del dibujo en celdas. Entero positivo y obligatorio. |
 | `pixels` | `(String \| null)[]` | Arreglo lineal de colores hexadecimales en formato `#RRGGBB`; `null` representa una celda sin color. Se lee por filas de `width` celdas y `height` filas. Su longitud debe ser `width * height`. |

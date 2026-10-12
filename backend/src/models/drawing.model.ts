@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 interface DrawingData {
   userId: mongoose.Types.ObjectId;
-  title?: string;
+  title: string;
   width: number;
   height: number;
   pixels: (string | null)[];
@@ -18,7 +18,7 @@ const drawingSchema = new mongoose.Schema<DrawingData>(
       ref: "User",
       required: true,
     },
-    title: String,
+    title: { type: String, required: true, trim: true },
     width: {
       type: Number,
       required: true,

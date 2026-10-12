@@ -14,7 +14,7 @@ interface Props {
 }
 
 export function DrawingCard({ drawing, onOpen, onDelete, onToggleFavorite }: Props) {
-  const title = drawing.title || "Sin título";
+  const title = drawing.title?.trim() || "Sin título";
 
   return (
     <article className={styles["card"]}>

@@ -41,3 +41,17 @@ export async function saveDrawing(input: DrawingInput, id: string | null): Promi
     throw new Error("No pudimos guardar tu dibujo. Inténtalo nuevamente.", { cause: error });
   }
 }
+
+export async function listDrawings(signal: AbortSignal): Promise<Drawing[]> {
+  try {
+    const response = await axios.get<Drawing[]>("/api/drawings", { withCredentials: true, signal });
+
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      throw error;
+    }
+
+    throw new Error("No pudimos cargar tus dibujos. Inténtalo nuevamente.", { cause: error });
+  }
+}

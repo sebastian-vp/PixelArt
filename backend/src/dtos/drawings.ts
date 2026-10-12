@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const createDrawingSchema = z.object({
-  title: z.string().optional(),
+  title: z.string().trim().min(1),
   width: z.number().int().positive(),
   height: z.number().int().positive(),
   pixels: z.array(
