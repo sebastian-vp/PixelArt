@@ -8,16 +8,17 @@ export type DrawingCardData = Pick<Drawing, "id" | "title" | "width" | "height" 
 
 interface Props {
   drawing: DrawingCardData;
+  isDeleting?: boolean;
   onOpen?: (drawing: DrawingCardData) => void;
   onDelete?: (drawing: DrawingCardData) => void;
   onToggleFavorite?: (drawing: DrawingCardData) => void;
 }
 
-export function DrawingCard({ drawing, onOpen, onDelete, onToggleFavorite }: Props) {
+export function DrawingCard({ drawing, onOpen, onDelete, onToggleFavorite, isDeleting = false }: Props) {
   const title = drawing.title?.trim() || "Sin título";
 
   return (
-    <article className={styles["card"]}>
+    <article className={styles["card"]} aria-busy={isDeleting}>
       <div className={styles["preview"]} role="img" aria-label={`Vista previa de ${title}`}>
         <div
           className={styles["pixel-art"]}
@@ -43,7 +44,7 @@ export function DrawingCard({ drawing, onOpen, onDelete, onToggleFavorite }: Pro
             type="button"
             aria-label={`${drawing.isFavorite ? "Quitar" : "Marcar"} favorito: ${title}`}
             aria-pressed={drawing.isFavorite}
-            disabled={!onToggleFavorite}
+            disabled={!onToggleFavorite || isDeleting}
             onClick={() => onToggleFavorite?.(drawing)}
           >
             <Star size={16} fill={drawing.isFavorite ? "currentColor" : "none"} />
@@ -54,14 +55,14 @@ export function DrawingCard({ drawing, onOpen, onDelete, onToggleFavorite }: Pro
             {drawing.width}×{drawing.height}
           </span>
           <div className={styles["actions"]}>
-            <button className={styles["open"]} type="button" disabled={!onOpen} onClick={() => onOpen?.(drawing)}>
+            <button className={styles["open"]} type="button" disabled={!onOpen || isDeleting} onClick={() => onOpen?.(drawing)}>
               Abrir
             </button>
             <button
               className={styles["delete"]}
               type="button"
-              aria-label={`Eliminar ${title}`}
-              disabled={!onDelete}
+              aria-label={`${isDeleting ? "Eliminando" : "Eliminar"} ${title}`}
+              disabled={!onDelete || isDeleting}
               onClick={() => onDelete?.(drawing)}
             >
               <X size={14} />

@@ -5,7 +5,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { Button, Toast } from "@/components";
 import { useAuth } from "@/hooks";
 import { DrawingCard, type DrawingCardData, EmptyGallery } from "@/pages/components";
-import { listDrawings } from "@/services/drawings";
+import { deleteDrawing, listDrawings } from "@/services/drawings";
 
 import { Filter } from "./components";
 import styles from "./Home.module.css";
@@ -17,6 +17,7 @@ export function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
+  const [deletingIds, setDeletingIds] = useState<string[]>([]);
   const { clearSession } = useAuth();
   const setToast: (value: React.ReactElement | null) => void = useOutletContext();
 
@@ -56,6 +57,29 @@ export function Home() {
     setRetryCount((count) => count + 1);
   }
 
+  async function onDelete(drawing: DrawingCardData) {
+    if (deletingIds.includes(drawing.id)) return;
+
+    setDeletingIds((ids) => [...ids, drawing.id]);
+    setToast(null);
+
+    try {
+      await deleteDrawing(drawing.id);
+      setAllDrawings((drawings) => drawings.filter((item) => item.id !== drawing.id));
+      setToast(<Toast type="success" title="Dibujo eliminado" message="Tu dibujo se eliminó correctamente." />);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        clearSession();
+        return;
+      }
+
+      const message = error instanceof Error ? error.message : "No pudimos eliminar tu dibujo.";
+      setToast(<Toast type="error" title="No se pudo eliminar el dibujo" message={message} />);
+    } finally {
+      setDeletingIds((ids) => ids.filter((id) => id !== drawing.id));
+    }
+  }
+
   const drawings = selectedFilter === "favorites" ? allDrawings.filter((drawing) => drawing.isFavorite) : allDrawings;
   const favoritesCount = allDrawings.filter((drawing) => drawing.isFavorite).length;
 
@@ -90,7 +114,13 @@ export function Home() {
         ) : drawings.length > 0 ? (
           <div className={styles["cards"]}>
             {drawings.map((drawing) => (
-              <DrawingCard key={drawing.id} drawing={drawing} onOpen={(drawing) => navigate(`/editor/${drawing.id}`)} />
+              <DrawingCard
+                key={drawing.id}
+                drawing={drawing}
+                onOpen={(drawing) => navigate(`/editor/${drawing.id}`)}
+                onDelete={onDelete}
+                isDeleting={deletingIds.includes(drawing.id)}
+              />
             ))}
           </div>
         ) : (

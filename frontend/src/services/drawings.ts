@@ -73,3 +73,19 @@ export async function getDrawing(id: string, signal: AbortSignal): Promise<Drawi
     throw new Error("No pudimos abrir tu dibujo. Inténtalo nuevamente.", { cause: error });
   }
 }
+
+export async function deleteDrawing(id: string): Promise<void> {
+  try {
+    await axios.delete(`/api/drawings/${id}`, {
+      withCredentials: true,
+      headers: { "X-CSRF-Token": localStorage.getItem("csrfToken") },
+    });
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 404) return;
+      if (error.response?.status === 401) throw error;
+    }
+
+    throw new Error("No pudimos eliminar tu dibujo. Inténtalo nuevamente.", { cause: error });
+  }
+}
