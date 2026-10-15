@@ -18,7 +18,8 @@ export function Editor() {
 
 function EditorContent({ id }: { id: string | undefined }) {
   const [selectedColor, setSelectedColor] = useState<Color>(COLORS[0]);
-  const [selectedTool, setSelectedTool] = useState<"pincel" | "eraser">("pincel");
+  const [selectedTool, setSelectedTool] = useState<"pincel" | "eraser" | "bucket">("pincel");
+  const [isPainting, setIsPainting] = useState(false);
 
   const [title, setTitle] = useState("");
   const [grid, setGrid] = useState(() => Array.from({ length: 16 }, () => Array<string | null>(16).fill(null)));
@@ -77,7 +78,13 @@ function EditorContent({ id }: { id: string | undefined }) {
 
     setGrid((currentGrid) =>
       currentGrid.map((currentRow, i) =>
-        currentRow.map((color, j) => (i === row && j === col ? (selectedTool === "pincel" ? selectedColor.code : null) : color)),
+        currentRow.map((color, j) => {
+          if (i !== row || j !== col) return color;
+
+          if (selectedTool === "eraser") return null;
+
+          return selectedColor.code;
+        }),
       ),
     );
   }
@@ -134,7 +141,14 @@ function EditorContent({ id }: { id: string | undefined }) {
       <div className={styles["workspace"]}>
         <ToolBar selectedTool={selectedTool} setSelectedTool={setSelectedTool} />
 
-        <DrawingCanvas grid={grid} updateColor={updateColor} disabled={isSubmitting} />
+        <DrawingCanvas
+          grid={grid}
+          updateColor={updateColor}
+          disabled={isSubmitting || isLoading || Boolean(loadError)}
+          selectedTool={selectedTool}
+          isPainting={isPainting}
+          setIsPainting={setIsPainting}
+        />
 
         <ColorPalette selectedColor={selectedColor} setSelectedColor={setSelectedColor} />
       </div>
