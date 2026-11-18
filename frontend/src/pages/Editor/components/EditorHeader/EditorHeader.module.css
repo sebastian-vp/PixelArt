@@ -39,3 +39,11 @@
 .input:focus {
   outline: 2px solid var(--primary-active-color);
 }
+
+.button {
+  background-color: var(--primary-contrast-color);
+}
+
+.button:hover {
+  background-color: var(--primary-hover-color);
+}
