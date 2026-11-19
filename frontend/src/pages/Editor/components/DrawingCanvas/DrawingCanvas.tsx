@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styles from "./DrawingCanvas.module.css";
+import type { Color } from "@/pages/Editor/components/ColorPalette/color.types";
 
 interface Props {
   grid: (string | null)[][];
@@ -8,7 +9,7 @@ interface Props {
   selectedTool: "pincel" | "eraser" | "bucket";
   isPainting: boolean;
   setIsPainting: (painting: boolean) => void;
-  selectedColor: string | null;
+  selectedColor: Color | null;
 }
 
 export function DrawingCanvas({ grid, updateColor, disabled, selectedTool, isPainting, setIsPainting, selectedColor }: Props) {

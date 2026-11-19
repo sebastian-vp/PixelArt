@@ -69,19 +69,6 @@ export function ColorPalette({ selectedColor, setSelectedColor }: Props) {
             />
           </label>{" "}
         </div>
-
-        {/* Muestra información del dibujo */}
-        <p className={styles["title"]}>Dibujo</p>
-        <div className={styles["row"]}>
-          <p className={styles["text"]}>Pixeles pintados</p>
-          {/* HARDCODED */}
-          <p className={styles["stat"]}>10</p>
-        </div>
-        <div className={styles["row"]}>
-          <p className={styles["text"]}>Colores usados</p>
-          {/* HARDCODED */}
-          <p className={styles["stat"]}>2</p>
-        </div>
       </div>
     </div>
   );
