@@ -2,6 +2,9 @@ import type { Color } from "./color.types";
 import styles from "./ColorPalette.module.css";
 import { COLORS } from "./colors";
 
+import { useState } from "react";
+import { Palette } from "lucide-react";
+
 // tipo de props para el componente ColorPalette
 type Props = {
   selectedColor: Color;
@@ -11,6 +14,9 @@ type Props = {
 // componente ColorPalette que muestra la paleta de colores. Permite mostrar y cambiar el color seleccionado
 // recibe como props el color seleccionado y una función para actualizarlo
 export function ColorPalette({ selectedColor, setSelectedColor }: Props) {
+  const [customColor, setCustomColor] = useState<string | null>(null);
+  const isCustomSelected = customColor !== null && selectedColor.code === customColor;
+
   return (
     <div className={styles["background"]}>
       <div className={styles["column"]}>
@@ -38,6 +44,30 @@ export function ColorPalette({ selectedColor, setSelectedColor }: Props) {
               onClick={() => setSelectedColor(color)}
             />
           ))}
+          <label
+            className={`${styles["color"]} ${styles["customColor"]}`}
+            style={{
+              background: customColor ?? undefined,
+              border: isCustomSelected ? "2px solid var(--text-color)" : "none",
+            }}
+            title="Color personalizado"
+          >
+            <Palette size={20} />
+            <input
+              type="color"
+              className={styles["colorInput"]}
+              value={customColor ?? "#000000"}
+              aria-label="Color personalizado"
+              onChange={(e) => {
+                setCustomColor(e.target.value);
+                setSelectedColor({ code: e.target.value, name: "Personalizado" });
+              }} // ajusta a la forma de tu tipo de color
+              onClick={() => {
+                // Permite volver a seleccionar el color personalizado ya elegido.
+                if (customColor) setSelectedColor({ code: customColor, name: "Personalizado" });
+              }}
+            />
+          </label>{" "}
         </div>
 
         {/* Muestra información del dibujo */}

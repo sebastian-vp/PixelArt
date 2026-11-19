@@ -50,6 +50,8 @@
    Light theme by default in :root, dark theme in [data-theme="dark"]. */
 
 :root {
+  color-scheme: light;
+
   --font-pixel: "Press Start 2P", cursive;
   --font-sans: "Space Grotesk", sans-serif;
 
@@ -120,6 +122,8 @@
 
 /* Dark Theme variables */
 [data-theme="dark"] {
+  color-scheme: dark;
+
   --background-color: #14121a;
   --surface-color: #1e1b26;
   --panel-color: #1a1822;
