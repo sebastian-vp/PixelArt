@@ -1,0 +1,156 @@
+/* Modal a medida. Todo el color viene de las variables de index.css,
+   así que funciona igual en el tema claro y en el oscuro. */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+  background: rgba(27, 24, 38, 0.6);
+  background: color-mix(in srgb, var(--shadow-color) 60%, transparent);
+  animation: overlay-in 150ms steps(4) both;
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  max-height: calc(100dvh - 2rem);
+  background: var(--background-color);
+  /* color: var(--text-color); */
+  font-family: var(--font-sans);
+  font-size: var(--font-size-16);
+  border: 3px solid var(--border-color);
+  border-radius: 0;
+  box-shadow: 6px 6px 0 var(--shadow-color);
+  animation: dialog-in 150ms steps(4) both;
+}
+
+.dialog:focus {
+  outline: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--panel-color);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-pixel);
+  font-size: var(--font-size-12);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--text-color);
+  background: var(--surface-color);
+  border: 2px solid var(--border-color);
+  border-radius: 0;
+  box-shadow: 2px 2px 0 var(--shadow-color);
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  background: var(--primary-hover-color);
+}
+
+.closeButton:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.body {
+  flex: 1 1 auto;
+  padding: 1rem;
+  overflow-y: auto;
+  line-height: 1.5;
+  color: var(--text-color);
+  font-family: var(--font-sans);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--panel-color);
+  border-top: 2px solid var(--border-color);
+}
+/* Salida */
+.closing {
+  animation: overlay-out 150ms steps(4) both;
+}
+
+.closing .dialog {
+  animation: dialog-out 150ms steps(4) both;
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dialog-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .dialog,
+  .closing,
+  .closing .dialog {
+    animation: none;
+  }
+}
