@@ -1,23 +1,27 @@
 import { ArrowLeft } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { Button } from "@/components";
+import { Toast, Button } from "@/components";
 
 import styles from "./EditorHeader.module.css";
 
 interface Props {
   title: string;
   setTitle: (title: string) => void;
-  onSave: () => void;
+  onSave: () => Promise<void>; // antes: () => void
   isSubmitting: boolean;
 }
 
 export function EditorHeader({ title, setTitle, onSave, isSubmitting }: Props) {
   const navigate = useNavigate();
 
-  const handleSaveAndClose = () => {
-    onSave();
-    navigate("/");
+  const handleSaveAndClose = async () => {
+    try {
+      await onSave();
+      navigate("/");
+    } catch {
+      return <Toast type="error" title="Error" message="No se pudo guardar el proyecto." />;
+    }
   };
 
   return (
