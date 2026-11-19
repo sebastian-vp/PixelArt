@@ -7,6 +7,9 @@ import { useAuth } from "@/hooks";
 import { DrawingCard, type DrawingCardData, EmptyGallery } from "@/pages/components";
 import { Filter } from "@/pages/Home/components";
 import { deleteDrawing, listDrawings, setFavorite } from "@/services/drawings";
+import { Stack } from "react-bootstrap";
+
+import { StaticModal } from "@/components/StaticModal";
 
 import styles from "./DrawingGallery.module.css";
 
@@ -24,6 +27,12 @@ export function DrawingGallery({ favoritesOnly = false }: Props) {
   const [pendingIds, setPendingIds] = useState<string[]>([]);
   const { clearSession } = useAuth();
   const setToast: (value: React.ReactElement | null) => void = useOutletContext();
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [drawingToDelete, setDrawingToDelete] = useState<DrawingCardData | null>(null);
+
+  const handleCloseModal = () => setShowDeleteModal(false);
+  const handleShowModal = () => setShowDeleteModal(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -60,6 +69,11 @@ export function DrawingGallery({ favoritesOnly = false }: Props) {
     setIsLoading(true);
     setRetryCount((count) => count + 1);
   }
+
+  const handleClickDelete = (drawing: DrawingCardData) => {
+    setDrawingToDelete(drawing);
+    handleShowModal();
+  };
 
   async function onDelete(drawing: DrawingCardData) {
     if (pendingIds.includes(drawing.id)) return;
@@ -118,6 +132,35 @@ export function DrawingGallery({ favoritesOnly = false }: Props) {
 
   return (
     <div className={styles["page"]}>
+      <StaticModal
+        title="Eliminar dibujo"
+        show={showDeleteModal}
+        handleClose={handleCloseModal}
+        footer={
+          <Stack direction="horizontal" gap={3} className="justify-content-end">
+            <Button
+              text="Cancelar"
+              onClick={handleCloseModal}
+              customStyles={{ backgroundColor: "var(--secondary-color)", color: "var(--text-color)" }}
+            />
+            <Button
+              text="Eliminar"
+              onClick={() => {
+                if (drawingToDelete) {
+                  void onDelete(drawingToDelete);
+                  setDrawingToDelete(null);
+                  handleCloseModal();
+                }
+              }}
+              customStyles={{ backgroundColor: "var(--error-color)", color: "var(--text-color)" }}
+            />
+          </Stack>
+        }
+      >
+        <p>
+          ¿Estás seguro de que quieres eliminar el dibujo <strong>"{drawingToDelete?.title}"</strong>?
+        </p>
+      </StaticModal>
       {!favoritesOnly && (
         <div className={styles["filter-container"]}>
           <Filter
@@ -153,7 +196,7 @@ export function DrawingGallery({ favoritesOnly = false }: Props) {
                 key={drawing.id}
                 drawing={drawing}
                 onOpen={(drawing) => navigate(`/editor/${drawing.id}`)}
-                onDelete={onDelete}
+                onDelete={handleClickDelete}
                 onToggleFavorite={onToggleFavorite}
                 isPending={pendingIds.includes(drawing.id)}
               />

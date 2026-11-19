@@ -1,11 +1,17 @@
 import { Moon, Sun } from "lucide-react";
 
+import { useEffect } from "react";
+
 import { useTheme } from "@/hooks";
 
 import styles from "./ToggleTheme.module.css";
 
 export function ToggleTheme() {
   const [theme, setTheme] = useTheme();
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   return (
     <div className={styles["theme"]}>

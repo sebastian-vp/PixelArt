@@ -148,6 +148,7 @@ function EditorContent({ id }: { id: string | undefined }) {
           selectedTool={selectedTool}
           isPainting={isPainting}
           setIsPainting={setIsPainting}
+          selectedColor={selectedColor}
         />
 
         <ColorPalette selectedColor={selectedColor} setSelectedColor={setSelectedColor} />

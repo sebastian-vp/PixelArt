@@ -4,6 +4,8 @@ import type { Drawing } from "@/services/drawings";
 
 import styles from "./DrawingCard.module.css";
 
+import { Stack } from "react-bootstrap";
+
 export type DrawingCardData = Pick<Drawing, "id" | "title" | "width" | "height" | "pixels" | "isFavorite">;
 
 interface Props {
@@ -35,10 +37,7 @@ export function DrawingCard({ drawing, onOpen, onDelete, onToggleFavorite, isPen
         </div>
       </div>
       <div className={styles["info"]}>
-        <div className={styles["title-row"]}>
-          <h3 className={styles["title"]} title={title}>
-            {title}
-          </h3>
+        <Stack direction="horizontal" gap={2}>
           <button
             className={`${styles["favorite"]} ${drawing.isFavorite ? styles["favorite-active"] : ""}`}
             type="button"
@@ -47,17 +46,17 @@ export function DrawingCard({ drawing, onOpen, onDelete, onToggleFavorite, isPen
             disabled={!onToggleFavorite || isPending}
             onClick={() => onToggleFavorite?.(drawing)}
           >
-            <Star size={16} fill={drawing.isFavorite ? "currentColor" : "none"} />
+            <Star size={20} fill={drawing.isFavorite ? "currentColor" : "none"} />
           </button>
-        </div>
+          <h3 className={styles["title"]} title={title}>
+            {title}
+          </h3>
+        </Stack>
         <div className={styles["actions-row"]}>
           <span className={styles["dimensions"]}>
             {drawing.width}×{drawing.height}
           </span>
-          <div className={styles["actions"]}>
-            <button className={styles["open"]} type="button" disabled={!onOpen || isPending} onClick={() => onOpen?.(drawing)}>
-              Abrir
-            </button>
+          <Stack direction="horizontal" gap={3}>
             <button
               className={styles["delete"]}
               type="button"
@@ -65,9 +64,12 @@ export function DrawingCard({ drawing, onOpen, onDelete, onToggleFavorite, isPen
               disabled={!onDelete || isPending}
               onClick={() => onDelete?.(drawing)}
             >
-              <X size={14} />
+              <X className="my-auto mx-auto p-0" size={14} />
             </button>
-          </div>
+            <button className={styles["open"]} type="button" disabled={!onOpen || isPending} onClick={() => onOpen?.(drawing)}>
+              Abrir
+            </button>
+          </Stack>
         </div>
       </div>
     </article>
