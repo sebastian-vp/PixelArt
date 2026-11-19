@@ -34,12 +34,10 @@
   gap: 8px;
 }
 
-.title-row,
 .actions-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
 }
 
 .title {
@@ -47,7 +45,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: var(--font-size-14);
+  font-size: var(--font-size-18);
   font-weight: 500;
   color: var(--text-color);
 }
@@ -85,26 +83,31 @@
   justify-content: center;
   border: 1px solid var(--popover-border-color);
   border-radius: 2px;
-  background-color: var(--surface-color);
-  color: var(--text-color);
+  background-color: var(--primary-color);
+  color: var(--text-on-color);
   font-family: var(--font-sans);
-  font-size: var(--font-size-12);
+  font-size: var(--font-size-14);
   cursor: pointer;
+  height: 28px;
 }
 
 .delete {
   padding: 3px;
+  background-color: var(--surface-color);
+  border-color: var(--favorite-off-color);
   color: var(--favorite-off-color);
-  border-color: var(--border-soft-color);
+  width: 28px;
 }
 
 .open:hover:enabled {
   background-color: var(--primary-color);
+  color: var(--text-on-color);
+  border-color: var(--primary-color);
 }
 
 .delete:hover:enabled {
-  border-color: var(--favorite-color);
-  color: var(--favorite-color);
+  background-color: var(--error-color);
+  color: var(--text-on-color);
 }
 
 .card button:disabled {
