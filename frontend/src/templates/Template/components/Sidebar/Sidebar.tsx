@@ -1,13 +1,15 @@
 import { NavLink } from "react-router-dom";
 
 import { ToggleTheme } from "@/components/ToggleTheme";
-import { useAuth } from "@/hooks";
+import { useSessionStore } from "@/hooks";
 
 import { UserMenu } from "../UserMenu";
 import styles from "./Sidebar.module.css";
 
 export function Sidebar() {
-  const { user, isLoading, error } = useAuth();
+  const user = useSessionStore((state) => state.user);
+  const isLoading = useSessionStore((state) => state.isLoading);
+  const error = useSessionStore((state) => state.error);
 
   function getLinkClass({ isActive }: { isActive: boolean }) {
     let classes = styles["nav-item"];

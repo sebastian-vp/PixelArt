@@ -2,14 +2,15 @@ import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 import { Button, Toast } from "@/components";
-import { useAuth } from "@/hooks";
+import { useSessionStore } from "@/hooks";
 import { Header, Input, Link } from "@/templates/Auth";
 
 // import styles from "./Login.module.css";
 
 export function Login() {
   const navigate = useNavigate();
-  const { signIn, isLoading } = useAuth();
+  const signIn = useSessionStore((state) => state.signIn);
+  const isLoading = useSessionStore((state) => state.isLoading);
   const setToast: (value: React.ReactElement | null) => void = useOutletContext();
 
   const [email, setEmail] = useState("");
