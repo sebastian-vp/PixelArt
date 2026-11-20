@@ -1,6 +1,15 @@
 import axios from "axios";
 
-import type { AuthUser, LoginInput } from "@/contexts/auth";
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export interface LoginInput {
+  email: string;
+  password: string;
+}
 
 export async function login(input: LoginInput) {
   try {
@@ -24,9 +33,9 @@ export async function login(input: LoginInput) {
   }
 }
 
-export async function getSession(signal: AbortSignal) {
+export async function getSession() {
   try {
-    const response = await axios.get<AuthUser>("/api/auth/me", { withCredentials: true, signal });
+    const response = await axios.get<AuthUser>("/api/auth/me", { withCredentials: true });
 
     return { user: response.data, csrfToken: response.headers["x-csrf-token"] as string };
   } catch (error: unknown) {

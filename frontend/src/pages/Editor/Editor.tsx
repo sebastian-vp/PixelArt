@@ -1,10 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink, useOutletContext, useParams } from "react-router-dom";
 
 import { Button, Toast } from "@/components";
-import { useAuth } from "@/hooks";
-import { getDrawing, saveDrawing } from "@/services/drawings";
+import { useDrawingsStore } from "@/hooks";
 
 import { ColorPalette, DrawingCanvas, EditorHeader, ToolBar } from "./components";
 import { type Color, COLORS } from "./components/ColorPalette";
@@ -24,13 +22,13 @@ function EditorContent({ id }: { id: string | undefined }) {
   const [title, setTitle] = useState("");
   const [grid, setGrid] = useState(() => Array.from({ length: 16 }, () => Array<string | null>(16).fill(null)));
   const [drawingId, setDrawingId] = useState<string | null>(null);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(Boolean(id));
   const [loadError, setLoadError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const setToast: (value: React.ReactElement | null) => void = useOutletContext();
-  const { clearSession } = useAuth();
+  const getDrawing = useDrawingsStore((state) => state.getDrawing);
+  const saveDrawing = useDrawingsStore((state) => state.saveDrawing);
 
   useEffect(() => {
     if (!id) return;
@@ -41,16 +39,15 @@ function EditorContent({ id }: { id: string | undefined }) {
     async function loadDrawing() {
       try {
         const drawing = await getDrawing(requestedId, controller.signal);
-        if (controller.signal.aborted) return;
+        if (!drawing || controller.signal.aborted) {
+          return;
+        }
 
         setTitle(drawing.title ?? "");
         setGrid(Array.from({ length: drawing.height }, (_, row) => drawing.pixels.slice(row * drawing.width, (row + 1) * drawing.width)));
         setDrawingId(drawing.id);
-        setIsFavorite(drawing.isFavorite);
       } catch (error: unknown) {
-        if (controller.signal.aborted) return;
-        if (axios.isAxiosError(error) && error.response?.status === 401) {
-          clearSession();
+        if (controller.signal.aborted) {
           return;
         }
 
@@ -64,7 +61,7 @@ function EditorContent({ id }: { id: string | undefined }) {
 
     void loadDrawing();
     return () => controller.abort();
-  }, [id, clearSession, setToast, retryCount]);
+  }, [id, getDrawing, setToast, retryCount]);
 
   function retry() {
     setLoadError(null);
@@ -101,18 +98,13 @@ function EditorContent({ id }: { id: string | undefined }) {
     setIsSubmitting(true);
 
     try {
-      const drawing = await saveDrawing(
-        { title: title.trim(), width: grid[0].length, height: grid.length, pixels: grid.flat(), isFavorite },
-        drawingId,
-      );
+      const drawing = await saveDrawing({ title: title.trim(), width: grid[0].length, height: grid.length, pixels: grid.flat() }, drawingId);
+      if (!drawing) {
+        return;
+      }
       setDrawingId(drawing.id);
       setToast(<Toast type="success" title="Dibujo guardado" message="Tu dibujo se guardó correctamente." />);
     } catch (error: unknown) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        clearSession();
-        return;
-      }
-
       const message = error instanceof Error ? error.message : "No pudimos guardar tu dibujo. Inténtalo nuevamente.";
       setToast(<Toast type="error" title="No se pudo guardar el dibujo" message={message} />);
     } finally {

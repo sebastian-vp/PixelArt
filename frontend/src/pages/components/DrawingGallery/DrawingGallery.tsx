@@ -1,15 +1,12 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { Stack } from "react-bootstrap";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 import { Button, Toast } from "@/components";
-import { useAuth } from "@/hooks";
+import { StaticModal } from "@/components/StaticModal";
+import { useDrawingsStore } from "@/hooks";
 import { DrawingCard, type DrawingCardData, EmptyGallery } from "@/pages/components";
 import { Filter } from "@/pages/Home/components";
-import { deleteDrawing, listDrawings, setFavorite } from "@/services/drawings";
-import { Stack } from "react-bootstrap";
-
-import { StaticModal } from "@/components/StaticModal";
 
 import styles from "./DrawingGallery.module.css";
 
@@ -20,12 +17,14 @@ interface Props {
 export function DrawingGallery({ favoritesOnly = false }: Props) {
   const navigate = useNavigate();
   const [selectedFilter, setSelectedFilter] = useState("all");
-  const [allDrawings, setAllDrawings] = useState<DrawingCardData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const allDrawings = useDrawingsStore((state) => state.drawings);
+  const hasLoaded = useDrawingsStore((state) => state.hasLoaded);
+  const pendingIds = useDrawingsStore((state) => state.pendingIds);
+  const loadDrawings = useDrawingsStore((state) => state.loadDrawings);
+  const deleteDrawing = useDrawingsStore((state) => state.deleteDrawing);
+  const setFavorite = useDrawingsStore((state) => state.setFavorite);
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
-  const [pendingIds, setPendingIds] = useState<string[]>([]);
-  const { clearSession } = useAuth();
   const setToast: (value: React.ReactElement | null) => void = useOutletContext();
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -37,36 +36,27 @@ export function DrawingGallery({ favoritesOnly = false }: Props) {
   useEffect(() => {
     const controller = new AbortController();
 
-    async function loadDrawings() {
+    async function loadGallery() {
       try {
-        const drawings = await listDrawings(controller.signal);
-        if (controller.signal.aborted) return;
-
-        setAllDrawings(drawings);
+        await loadDrawings(controller.signal);
       } catch (error: unknown) {
-        if (controller.signal.aborted) return;
-
-        if (axios.isAxiosError(error) && error.response?.status === 401) {
-          clearSession();
+        if (controller.signal.aborted) {
           return;
         }
 
         const message = error instanceof Error ? error.message : "No pudimos cargar tus dibujos.";
         setError(message);
         setToast(<Toast type="error" title="No se pudieron cargar los dibujos" message={message} />);
-      } finally {
-        if (!controller.signal.aborted) setIsLoading(false);
       }
     }
 
-    void loadDrawings();
+    void loadGallery();
     return () => controller.abort();
-  }, [clearSession, setToast, retryCount]);
+  }, [loadDrawings, setToast, retryCount]);
 
   function retry() {
     setError(null);
     setToast(null);
-    setIsLoading(true);
     setRetryCount((count) => count + 1);
   }
 
@@ -76,37 +66,26 @@ export function DrawingGallery({ favoritesOnly = false }: Props) {
   };
 
   async function onDelete(drawing: DrawingCardData) {
-    if (pendingIds.includes(drawing.id)) return;
-
-    setPendingIds((ids) => [...ids, drawing.id]);
     setToast(null);
 
     try {
-      await deleteDrawing(drawing.id);
-      setAllDrawings((drawings) => drawings.filter((item) => item.id !== drawing.id));
-      setToast(<Toast type="success" title="Dibujo eliminado" message="Tu dibujo se eliminó correctamente." />);
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        clearSession();
-        return;
+      if (await deleteDrawing(drawing.id)) {
+        setToast(<Toast type="success" title="Dibujo eliminado" message="Tu dibujo se eliminó correctamente." />);
       }
-
+    } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "No pudimos eliminar tu dibujo.";
       setToast(<Toast type="error" title="No se pudo eliminar el dibujo" message={message} />);
-    } finally {
-      setPendingIds((ids) => ids.filter((id) => id !== drawing.id));
     }
   }
 
   async function onToggleFavorite(drawing: DrawingCardData) {
-    if (pendingIds.includes(drawing.id)) return;
-
-    setPendingIds((ids) => [...ids, drawing.id]);
     setToast(null);
 
     try {
       const updated = await setFavorite(drawing.id, !drawing.isFavorite);
-      setAllDrawings((drawings) => drawings.map((item) => (item.id === updated.id ? updated : item)));
+      if (!updated) {
+        return;
+      }
       setToast(
         <Toast
           type="success"
@@ -115,15 +94,8 @@ export function DrawingGallery({ favoritesOnly = false }: Props) {
         />,
       );
     } catch (error: unknown) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        clearSession();
-        return;
-      }
-
       const message = error instanceof Error ? error.message : "No pudimos actualizar el favorito.";
       setToast(<Toast type="error" title="No se pudo actualizar el favorito" message={message} />);
-    } finally {
-      setPendingIds((ids) => ids.filter((id) => id !== drawing.id));
     }
   }
 
@@ -182,7 +154,7 @@ export function DrawingGallery({ favoritesOnly = false }: Props) {
         </div>
       )}
       <div className={styles["gallery"]}>
-        {isLoading ? (
+        {!hasLoaded && !error ? (
           <p role="status">Cargando dibujos…</p>
         ) : error ? (
           <div role="alert">
