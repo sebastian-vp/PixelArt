@@ -5,11 +5,15 @@ import mongoose from "mongoose";
 import app from "#src/app";
 
 const PORT = process.env.PORT || 3001;
+const MONGODB_URI =
+  process.env.NODE_ENV === "test"
+    ? process.env.TEST_MONGODB_URI
+    : process.env.MONGODB_URI;
 
 mongoose.set("bufferCommands", false);
-if (process.env.MONGODB_URI) {
+if (MONGODB_URI) {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(MONGODB_URI);
   } catch {
     console.error("Could not connect to MongoDB");
     process.exit(1);
