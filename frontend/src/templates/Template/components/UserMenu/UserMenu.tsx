@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 import { Toast } from "@/components";
-import { useAuth } from "@/hooks";
+import { useSessionStore } from "@/hooks";
 
 import styles from "./UserMenu.module.css";
 
@@ -16,7 +16,7 @@ export function UserMenu({ name, email }: Props) {
   const [isMenuOPen, setIsMenuOpen] = useState(false);
   const footerRef = useRef<HTMLElement | null>(null);
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  const signOut = useSessionStore((state) => state.signOut);
   const setToast: (value: React.ReactElement | null) => void = useOutletContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
 

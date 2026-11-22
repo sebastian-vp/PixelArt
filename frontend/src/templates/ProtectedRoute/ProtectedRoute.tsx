@@ -1,10 +1,12 @@
 import { Link, Navigate, Outlet, useOutletContext } from "react-router-dom";
 
-import { useAuth } from "@/hooks";
+import { useSessionStore } from "@/hooks";
 
 export function ProtectedRoute() {
   const setToast: (value: React.ReactElement | null) => void = useOutletContext();
-  const { user, isLoading, error } = useAuth();
+  const user = useSessionStore((state) => state.user);
+  const isLoading = useSessionStore((state) => state.isLoading);
+  const error = useSessionStore((state) => state.error);
 
   if (isLoading) {
     return <p role="status">Recuperando sesión…</p>;

@@ -1,13 +1,14 @@
 import { Navigate, Outlet, useOutletContext } from "react-router-dom";
 
 import { ToggleTheme } from "@/components";
-import { useAuth } from "@/hooks";
+import { useSessionStore } from "@/hooks";
 
 import styles from "./Auth.module.css";
 
 export function Auth() {
   const setToast: (value: React.ReactElement | null) => void = useOutletContext();
-  const { user, isLoading } = useAuth();
+  const user = useSessionStore((state) => state.user);
+  const isLoading = useSessionStore((state) => state.isLoading);
 
   if (isLoading) {
     return <p role="status">Recuperando sesión…</p>;

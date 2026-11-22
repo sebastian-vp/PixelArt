@@ -33,6 +33,7 @@ docker compose down
 ### Stack
 
 - **React 19** + **TypeScript**
+- **Zustand** para el estado global
 
 ### Requisitos
 
@@ -59,6 +60,13 @@ La app queda en `http://localhost:5173`.
 | `npm run lint:fix` | ESLint con autofix |
 | `npm run format` | Formatea `src` con Prettier |
 
+### Estado global
+
+Usamos dos stores de Zustand para compartir el estado entre las páginas del frontend.
+
+- **Sesión** (`useSessionStore`). Gestiona el usuario que inició sesión. Al recargar la página, recuperamos la sesión con la cookie mediante `GET /api/auth/me`. Al cerrar sesión, también limpiamos la lista de dibujos en memoria.
+- **Dibujos** (`useDrawingsStore`). Comparte los dibujos guardados entre el editor, Mis dibujos y Favoritos. Por ejemplo, al marcar un dibujo como favorito en la galería, el store actualiza la colección cuando la API confirma el cambio y el dibujo aparece en Favoritos.
+
 ### Estructura
 
 ```
@@ -66,7 +74,9 @@ frontend/
 ├── public/            # Estáticos (favicon, etc.)
 └── src/
     ├── assets/        # Fuentes e imágenes
-    ├── components/    # Componentes reutilizables (ej. Sidebar)
+    ├── components/    # Componentes reutilizables (ej. Button)
+    ├── hooks/         # Hooks y stores de Zustand
+    ├── services/      # Llamadas a la API
     ├── templates/     # Layouts/plantillas de página
     ├── App.tsx        # Componente raíz
     └── main.tsx       # Punto de entrada
